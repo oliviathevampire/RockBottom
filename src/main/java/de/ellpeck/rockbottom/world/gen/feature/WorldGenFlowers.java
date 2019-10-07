@@ -2,7 +2,7 @@ package de.ellpeck.rockbottom.world.gen.feature;
 
 import de.ellpeck.rockbottom.api.Constants;
 import de.ellpeck.rockbottom.api.GameContent;
-import de.ellpeck.rockbottom.api.tile.TileMeta;
+import de.ellpeck.rockbottom.api.tile.MetaTile;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IChunk;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -29,7 +29,7 @@ public class WorldGenFlowers implements IWorldGenerator {
 
                 this.flowerRandom.setSeed(Util.scrambleSeed(x, y, world.getSeed()));
                 if (chance > 0F && this.flowerRandom.nextFloat() <= chance) {
-                    TileMeta tile = GameContent.TILE_FLOWER;
+                    MetaTile tile = GameContent.TILE_FLOWER;
                     if (tile.canPlace(world, chunk.getX() + x, chunk.getY() + y, TileLayer.MAIN, null)) {
                         int type = Util.floor(this.flowerRandom.nextDouble() * (double) tile.metaProp.getVariants());
                         chunk.setStateInner(x, y, tile.getDefState().prop(tile.metaProp, type));

@@ -48,6 +48,7 @@ public class ChatLog implements IChatLog {
         new CommandMe().register();
         new CommandMessage().register();
         new CommandGameMode().register();
+        new CommandCutscene().register();
     }
 
     @Override

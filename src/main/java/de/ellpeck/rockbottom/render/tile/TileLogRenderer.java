@@ -10,11 +10,11 @@ import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-import de.ellpeck.rockbottom.world.tile.TileLog;
+import de.ellpeck.rockbottom.world.tile.LogTile;
 
 import java.util.Locale;
 
-public class TileLogRenderer extends DefaultTileRenderer<TileLog> {
+public class TileLogRenderer extends DefaultTileRenderer<LogTile> {
 
     private final ResourceName[] textures;
 
@@ -33,7 +33,7 @@ public class TileLogRenderer extends DefaultTileRenderer<TileLog> {
     }
 
     @Override
-    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileLog tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
+    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, LogTile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
         LogType type = state.get(StaticTileProps.LOG_VARIANT);
         ResourceName tex = this.textures[type.ordinal()];
         manager.getTexture(tex).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);

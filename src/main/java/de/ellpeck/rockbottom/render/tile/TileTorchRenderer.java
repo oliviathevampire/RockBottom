@@ -9,9 +9,9 @@ import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-import de.ellpeck.rockbottom.world.tile.TileTorch;
+import de.ellpeck.rockbottom.world.tile.TorchTile;
 
-public class TileTorchRenderer extends DefaultTileRenderer<TileTorch> {
+public class TileTorchRenderer extends DefaultTileRenderer<TorchTile> {
 
     private final ResourceName[] texNormal = new ResourceName[2];
     private final ResourceName[] texLeft = new ResourceName[2];
@@ -32,7 +32,7 @@ public class TileTorchRenderer extends DefaultTileRenderer<TileTorch> {
     }
 
     @Override
-    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileTorch tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
+    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TorchTile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
         int meta = state.get(StaticTileProps.TORCH_FACING);
 
         ResourceName[] tex;

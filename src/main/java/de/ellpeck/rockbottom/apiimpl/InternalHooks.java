@@ -32,7 +32,7 @@ import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.item.IItemRenderer;
 import de.ellpeck.rockbottom.api.tile.Tile;
-import de.ellpeck.rockbottom.api.tile.TileLiquid;
+import de.ellpeck.rockbottom.api.tile.LiquidTile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.IStateHandler;
 import de.ellpeck.rockbottom.api.tile.state.TileProp;
@@ -543,7 +543,7 @@ public class InternalHooks implements IInternalHooks {
     }
 
     @Override
-    public void doDefaultLiquidBehavior(IWorld world, int x, int y, TileLayer layer, TileLiquid tile) {
+    public void doDefaultLiquidBehavior(IWorld world, int x, int y, TileLayer layer, LiquidTile tile) {
         TileState ourState = world.getState(layer, x, y);
         int ourLevel = ourState.get(tile.level) + 1;
         int startLevel = ourLevel;
@@ -671,7 +671,7 @@ public class InternalHooks implements IInternalHooks {
 
     }
 
-    private boolean balanceAndSpread(IWorld world, TileLayer layer, TileState otherState, TileState ourState, int ourLevel, int x, int y, int direction, TileLiquid tile) {
+    private boolean balanceAndSpread(IWorld world, TileLayer layer, TileState otherState, TileState ourState, int ourLevel, int x, int y, int direction, LiquidTile tile) {
         Direction flow = Direction.getHorizontal(direction);
         if (world.getState(x + direction, y).getTile().canLiquidSpread(world, x + direction, y, tile, flow.getOpposite()) &&  // enter state
                 world.getState(x + direction - flow.x, y).getTile().canLiquidSpread(world, x + direction - flow.x, y, tile, flow)) {  // exit state
@@ -719,18 +719,18 @@ public class InternalHooks implements IInternalHooks {
         }
     }
 
-    private void spread(IWorld world, TileLayer layer, int ourLevel, TileState ourState, int x, int y, int direction, TileLiquid tile) {
+    private void spread(IWorld world, TileLayer layer, int ourLevel, TileState ourState, int x, int y, int direction, LiquidTile tile) {
         world.setState(layer, x + direction, y, tile.getDefState()); // Place one unit
         world.setState(layer, x, y, ourState.prop(tile.level, ourLevel - 2)); // Decrease our level
     }
 
-    private void transfer(IWorld world, TileLayer layer, int secondLevel, TileState firstState, TileState secondState, int x1, int x2, int y, TileLiquid tile) {
+    private void transfer(IWorld world, TileLayer layer, int secondLevel, TileState firstState, TileState secondState, int x1, int x2, int y, LiquidTile tile) {
         world.setState(layer, x1, y, firstState.prop(tile.level, firstState.get(tile.level) - 1)); // Decrease first by one
         world.setState(layer, x2, y, secondState.prop(tile.level, secondLevel)); // Increase second by one
         world.scheduleUpdate(x2, y, layer, tile.getFlowSpeed());
     }
 
-    private boolean transferDown(IWorld world, TileLayer layer, TileState firstState, TileState secondState, int x, int y, int direction, TileLiquid tile) {
+    private boolean transferDown(IWorld world, TileLayer layer, TileState firstState, TileState secondState, int x, int y, int direction, LiquidTile tile) {
         boolean empty = false;
         if (secondState.getTile() == tile) {
             int secondLevel = secondState.get(tile.level) + 1;

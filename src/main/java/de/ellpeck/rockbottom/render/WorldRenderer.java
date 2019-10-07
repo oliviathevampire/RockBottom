@@ -349,7 +349,8 @@ public class WorldRenderer {
         g.setScale(scale, scale);
 
         int time = world.getCurrentTime();
-        float worldScale = game.getSettings().renderScale;
+
+        float worldScale = game.getRenderer().getCamera().getLerpedScale();
 
         float starAlpha = 1F - Math.min(1F, skylightMod + 0.5F);
         if (starAlpha <= 0F) {

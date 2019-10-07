@@ -68,10 +68,10 @@ public class ModLoader implements IModLoader {
 
             RockBottomAPI.logger().info("Loading jar mods from mods folder " + dir);
 
-            for (File file : dir.listFiles()) {
+            for (File file : Objects.requireNonNull(dir.listFiles())) {
                 if (!file.equals(infoFile) && !file.equals(manager.getModConfigFolder())) {
                     String name = file.getName();
-                    if (name != null && name.endsWith(".jar")) {
+                    if (name.endsWith(".jar")) {
                         try {
                             JarFile jar = new JarFile(file);
                             Enumeration<JarEntry> entries = jar.entries();
@@ -115,7 +115,7 @@ public class ModLoader implements IModLoader {
             RockBottomAPI.logger().info("Loading unpacked mods from folder " + dir);
 
             Counter amount = new Counter(0);
-            this.recursiveLoad(dir, dir.listFiles(), amount);
+            this.recursiveLoad(dir, Objects.requireNonNull(dir.listFiles()), amount);
 
             RockBottomAPI.logger().info("Loaded a total of " + amount.get() + " unpacked mods");
         } else {
@@ -126,10 +126,10 @@ public class ModLoader implements IModLoader {
     private void recursiveLoad(File original, File[] files, Counter amount) {
         for (File file : files) {
             if (file.isDirectory()) {
-                this.recursiveLoad(original, file.listFiles(), amount);
+                this.recursiveLoad(original, Objects.requireNonNull(file.listFiles()), amount);
             } else {
                 String name = file.getAbsolutePath();
-                if (name != null && name.endsWith(".class")) {
+                if (name.endsWith(".class")) {
                     try {
                         Main.classLoader.addURL(file.toURI().toURL());
 

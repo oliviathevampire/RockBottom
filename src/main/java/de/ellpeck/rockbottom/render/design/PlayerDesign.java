@@ -309,4 +309,56 @@ public class PlayerDesign implements IPlayerDesign {
     public void setFemale(boolean female) {
         this.female = female;
     }
+
+    /*private String generateFirstName(String gender) throws IOException {
+        String firstNameOut;
+        Random rand = new Random();
+        ResourceName male = ResourceName.intern("names/male.txt");
+        ResourceName female = ResourceName.intern("names/female.txt");
+        InputStream stream = MinecraftClient.getInstance().getResourceManager().getResource(male).getInputStream();
+        InputStream stream3 = MinecraftClient.getInstance().getResourceManager().getResource(female).getInputStream();
+        if (gender.equals("Male")) {
+            Scanner scanner = new Scanner(stream);
+            StringBuilder builder = new StringBuilder();
+            while (scanner.hasNextLine()) {
+                builder.append(scanner.nextLine());
+                builder.append(",");
+            }
+            String[] strings = builder.toString().split(",");
+            firstNameOut = strings[rand.nextInt(strings.length)];
+            scanner.close();
+            stream.close();
+        } else {
+            Scanner scanner2 = new Scanner(stream3);
+            StringBuilder builder2 = new StringBuilder();
+            while (scanner2.hasNextLine()) {
+                builder2.append(scanner2.nextLine());
+                builder2.append(",");
+            }
+            String[] strings2 = builder2.toString().split(",");
+            firstNameOut = strings2[rand.nextInt(strings2.length)];
+            scanner2.close();
+            stream3.close();
+        }
+        return firstNameOut;
+    }
+
+    private String generateLastName() throws IOException {
+        String lastNameOut;
+        Random rand = new Random();
+        Identifier surnames = new Identifier(StoryCraft.MOD_ID, "names/surnames.txt");
+        InputStream stream = MinecraftClient.getInstance().getResourceManager().getResource(surnames).getInputStream();
+        Scanner scanner = new Scanner(stream);
+        StringBuilder builder = new StringBuilder();
+        while (scanner.hasNextLine()) {
+            builder.append(scanner.nextLine());
+            builder.append(",");
+        }
+        String[] strings = builder.toString().split(",");
+        lastNameOut = strings[rand.nextInt(strings.length)];
+        stream.close();
+        scanner.close();
+        return lastNameOut;
+    }*/
+
 }

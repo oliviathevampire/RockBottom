@@ -2,7 +2,7 @@ package de.ellpeck.rockbottom.world.gen.feature;
 
 import de.ellpeck.rockbottom.api.Constants;
 import de.ellpeck.rockbottom.api.GameContent;
-import de.ellpeck.rockbottom.api.tile.TileMeta;
+import de.ellpeck.rockbottom.api.tile.MetaTile;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IChunk;
@@ -36,7 +36,7 @@ public class WorldGenCaveMushrooms implements IWorldGenerator {
                 TileState state = chunk.getStateInner(x, y);
 
                 if (state.getTile().canReplace(world, worldX, worldY, TileLayer.MAIN)) {
-                    TileMeta tile = GameContent.TILE_CAVE_MUSHROOM;
+                    MetaTile tile = GameContent.TILE_CAVE_MUSHROOM;
                     if (y > 0 && tile.canPlace(world, worldX, worldY, TileLayer.MAIN, null)) {
                         this.random.setSeed(Util.scrambleSeed(worldX, worldY, this.seed));
                         if (this.random.nextFloat() >= 0.8F) {

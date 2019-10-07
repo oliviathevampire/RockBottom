@@ -15,7 +15,7 @@ import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.tile.Tile;
-import de.ellpeck.rockbottom.api.tile.TileMeta;
+import de.ellpeck.rockbottom.api.tile.MetaTile;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Direction;
@@ -23,8 +23,9 @@ import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 import de.ellpeck.rockbottom.init.RockBottom;
-import de.ellpeck.rockbottom.inventory.InventoryPlayer;
 import de.ellpeck.rockbottom.net.packet.toserver.*;
+import de.ellpeck.rockbottom.render.cutscene.CutsceneManager;
+import de.ellpeck.rockbottom.render.cutscene.PathRecorder;
 import de.ellpeck.rockbottom.world.entity.player.statistics.StatisticList;
 
 import java.util.ArrayList;
@@ -200,8 +201,8 @@ public class InteractionManager implements IInteractionManager {
         TileState state = player.world.getState(layer, x, y);
         Tile tile = state.getTile();
         int meta = 0;
-        if (tile instanceof TileMeta)
-            meta = state.get(((TileMeta) tile).metaProp);
+        if (tile instanceof MetaTile)
+            meta = state.get(((MetaTile) tile).metaProp);
 
         if (tile != null) {
             Item item = tile.getItem();
@@ -260,28 +261,60 @@ public class InteractionManager implements IInteractionManager {
                     this.attackCooldown--;
                 }
 
+                PathRecorder recorder = CutsceneManager.getInstance().getActiveRecorder();
+                boolean interactNormally = !CutsceneManager.getInstance().isPlaying() && recorder == null;
+
                 if (Settings.KEY_LEFT.isDown()) {
-                    player.move(0);
+                    if (interactNormally) {
+                        player.move(0);
+                    } else if (recorder != null) {
+                        recorder.addVelocity(-recorder.getMoveSpeed(), 0, 0);
+                    }
                 } else if (Settings.KEY_RIGHT.isDown()) {
-                    player.move(1);
+                    if (interactNormally) {
+                        player.move(1);
+                    } else if (recorder != null) {
+                        recorder.addVelocity(recorder.getMoveSpeed(), 0, 0);
+                    }
                 }
 
                 if (Settings.KEY_UP.isDown()) {
-                    if (Settings.KEY_JUMP.isPressed() && player.getGameMode().isCreative()) {
-                        player.isFlying = true;
-                    } else {
-                        player.move(3);
+                    if (interactNormally) {
+                        if (Settings.KEY_JUMP.isPressed() && player.getGameMode().isCreative()) {
+                            player.isFlying = true;
+                        } else {
+                            player.move(3);
+                        }
+                    } else if (recorder != null) {
+                        recorder.addVelocity(0, recorder.getMoveSpeed(), 0);
                     }
                 } else if (Settings.KEY_DOWN.isDown()) {
-                    if (Settings.KEY_JUMP.isPressed() && player.getGameMode().isCreative()) {
-                        player.isFlying = false;
-                    } else {
-                        player.move(4);
+                    if (interactNormally) {
+                        if (Settings.KEY_JUMP.isPressed() && player.getGameMode().isCreative()) {
+                            player.isFlying = false;
+                        } else {
+                            player.move(4);
+                        }
+                    } else if (recorder != null) {
+                        recorder.addVelocity(0, -recorder.getMoveSpeed(), 0);
                     }
                 }
 
                 if (Settings.KEY_JUMP.isDown()) {
-                    player.move(2);
+                    if (interactNormally) {
+                        player.move(2);
+                    }
+                }
+
+                if (Settings.KEY_JUMP.isPressed()) {
+                    if (recorder != null) {
+                        if (recorder.isRecording()) {
+                            CutsceneManager.getInstance().disableRecordingMode();
+                        } else {
+                            System.out.println("STARTED RECORDING");
+                            recorder.startRecording();
+                        }
+                    }
                 }
 
                 double mousedTileX = game.getRenderer().getMousedTileX();
@@ -290,7 +323,7 @@ public class InteractionManager implements IInteractionManager {
                 int x = Util.floor(mousedTileX);
                 int y = Util.floor(mousedTileY);
 
-                if (player.world.isPosLoaded(x, y)) {
+                if (player.world.isPosLoaded(x, y) && interactNormally) {
                     boolean didBreakProgress = false;
                     boolean attacked = false;
 
@@ -421,17 +454,25 @@ public class InteractionManager implements IInteractionManager {
                 int scrollHor = game.getInput().getHorizontalMouseWheelChange();
 
                 if (scroll < 0 || scrollHor < 0) {
-                    slot++;
-                    if (slot >= 8) {
-                        slot = 0;
+                    if (interactNormally) {
+                        slot++;
+                        if (slot >= 8) {
+                            slot = 0;
+                        }
+                        slotChange = true;
+                    } else if (recorder != null) {
+                        recorder.addVelocity(0, 0, -recorder.getZoomSpeed());
                     }
-                    slotChange = true;
                 } else if (scroll > 0 || scrollHor > 0) {
-                    slot--;
-                    if (slot < 0) {
-                        slot = 7;
+                    if (interactNormally) {
+                        slot--;
+                        if (slot < 0) {
+                            slot = 7;
+                        }
+                        slotChange = true;
+                    } else if (recorder != null) {
+                        recorder.addVelocity(0, 0, recorder.getZoomSpeed());
                     }
-                    slotChange = true;
                 }
 
                 if (slotChange) {

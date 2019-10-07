@@ -32,9 +32,7 @@ import de.ellpeck.rockbottom.gui.cursor.CursorClosedHand;
 import de.ellpeck.rockbottom.gui.cursor.CursorFinger;
 import de.ellpeck.rockbottom.gui.cursor.CursorOpenHand;
 import de.ellpeck.rockbottom.gui.cursor.CursorPointer;
-import de.ellpeck.rockbottom.gui.menu.background.DesertTheme;
-import de.ellpeck.rockbottom.gui.menu.background.NatureTheme;
-import de.ellpeck.rockbottom.gui.menu.background.StoneTheme;
+import de.ellpeck.rockbottom.gui.menu.background.*;
 import de.ellpeck.rockbottom.init.RockBottom;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
@@ -68,6 +66,8 @@ public class AssetManager implements IAssetManager, IDisposable {
         Registries.MAIN_MENU_THEMES.register(0, new StoneTheme());
         Registries.MAIN_MENU_THEMES.register(1, new NatureTheme());
         Registries.MAIN_MENU_THEMES.register(2, new DesertTheme());
+        Registries.MAIN_MENU_THEMES.register(3, new RedDesertTheme());
+        Registries.MAIN_MENU_THEMES.register(4, new WhiteDesertTheme());
     }
 
     private final TextureStitcher stitcher = new TextureStitcher();

@@ -9,9 +9,9 @@ import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-import de.ellpeck.rockbottom.world.tile.TileLamp;
+import de.ellpeck.rockbottom.world.tile.LampTile;
 
-public class TileLampRenderer extends DefaultTileRenderer<TileLamp> {
+public class TileLampRenderer extends DefaultTileRenderer<LampTile> {
 
     private final ResourceName texLeft;
     private final ResourceName texRight;
@@ -26,7 +26,7 @@ public class TileLampRenderer extends DefaultTileRenderer<TileLamp> {
     }
 
     @Override
-    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileLamp tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
+    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, LampTile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
         int meta = state.get(StaticTileProps.TORCH_FACING);
 
         ResourceName tex;

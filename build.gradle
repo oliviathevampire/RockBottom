@@ -38,6 +38,9 @@ repositories {
     maven {
         url "http://clojars.org/repo/"
     }
+    maven {
+        url "https://libraries.minecraft.net/"
+    }
 }
 
 dependencies {
@@ -46,6 +49,7 @@ dependencies {
 
     //JOPT Simple for launch arg parsing
     compile group: 'net.sf.jopt-simple', name: 'jopt-simple', version: '6.0-alpha-2'
+    compile "com.mojang:brigadier:1.0.17"
 }
 
 jar {

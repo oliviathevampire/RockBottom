@@ -2,7 +2,7 @@ package de.ellpeck.rockbottom.world.gen.feature;
 
 import de.ellpeck.rockbottom.api.Constants;
 import de.ellpeck.rockbottom.api.GameContent;
-import de.ellpeck.rockbottom.api.tile.TileLiquid;
+import de.ellpeck.rockbottom.api.tile.LiquidTile;
 import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IChunk;
@@ -39,7 +39,7 @@ public class WorldGenLakes implements IWorldGenerator {
                     for (int y = startY - depthX + 1; y <= startY; y++) {
                         chunk.setStateInner(x, y, GameContent.TILE_AIR.getDefState());
 
-                        TileLiquid water = GameContent.TILE_WATER;
+                        LiquidTile water = GameContent.TILE_WATER;
                         if (y == startY) {
                             chunk.setStateInner(TileLayer.LIQUIDS, x, y, water.getDefState().prop(water.level, water.getLevels() - 3));
                         } else {

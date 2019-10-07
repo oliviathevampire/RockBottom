@@ -13,17 +13,17 @@ import de.ellpeck.rockbottom.api.util.Colors;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-import de.ellpeck.rockbottom.world.tile.TileMortar;
+import de.ellpeck.rockbottom.world.tile.MortarTile;
 import de.ellpeck.rockbottom.world.tile.entity.TileEntityMortar;
 
-public class TileMortarRenderer extends DefaultTileRenderer<TileMortar> {
+public class TileMortarRenderer extends DefaultTileRenderer<MortarTile> {
 
     public TileMortarRenderer(ResourceName texture) {
         super(texture);
     }
 
     @Override
-    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileMortar tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
+    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, MortarTile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
         super.render(game, manager, g, world, tile, state, x, y, layer, renderX, renderY, scale, light);
 
         TileEntityMortar tileEntity = world.getTileEntity(layer, x, y, TileEntityMortar.class);
@@ -45,7 +45,7 @@ public class TileMortarRenderer extends DefaultTileRenderer<TileMortar> {
     }
 
     @Override
-    public void renderOnMouseOver(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileMortar tile, TileState state, int x, int y, TileLayer layer, float mouseX, float mouseY) {
+    public void renderOnMouseOver(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, MortarTile tile, TileState state, int x, int y, TileLayer layer, float mouseX, float mouseY) {
         TileEntityMortar tileEntity = world.getTileEntity(layer, x, y, TileEntityMortar.class);
         if (tileEntity != null) {
             float progress = tileEntity.getProgress();

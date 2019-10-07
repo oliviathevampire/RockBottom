@@ -9,17 +9,17 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-import de.ellpeck.rockbottom.world.tile.TileSimpleFurnace;
+import de.ellpeck.rockbottom.world.tile.SimpleFurnaceTile;
 import de.ellpeck.rockbottom.world.tile.entity.TileEntitySimpleFurnace;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class TileSimpleFurnaceRenderer extends MultiTileRenderer<TileSimpleFurnace> {
+public class TileSimpleFurnaceRenderer extends MultiTileRenderer<SimpleFurnaceTile> {
 
     protected final Map<Pos2, ResourceName> texturesActive = new HashMap<>();
 
-    public TileSimpleFurnaceRenderer(ResourceName texture, TileSimpleFurnace tile) {
+    public TileSimpleFurnaceRenderer(ResourceName texture, SimpleFurnaceTile tile) {
         super(texture, tile);
 
         for (int x = 0; x < tile.getWidth(); x++) {
@@ -32,7 +32,7 @@ public class TileSimpleFurnaceRenderer extends MultiTileRenderer<TileSimpleFurna
     }
 
     @Override
-    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileSimpleFurnace tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
+    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, SimpleFurnaceTile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
         Pos2 main = tile.getMainPos(x, y, state);
         TileEntitySimpleFurnace tileEntity = world.getTileEntity(layer, main.getX(), main.getY(), TileEntitySimpleFurnace.class);
 

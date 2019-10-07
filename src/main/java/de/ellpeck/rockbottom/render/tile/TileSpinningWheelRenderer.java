@@ -11,17 +11,17 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-import de.ellpeck.rockbottom.world.tile.TileSpinningWheel;
+import de.ellpeck.rockbottom.world.tile.SpinningWheelTile;
 
-public class TileSpinningWheelRenderer extends MultiTileRenderer<TileSpinningWheel>
+public class TileSpinningWheelRenderer extends MultiTileRenderer<SpinningWheelTile>
 {
-    public TileSpinningWheelRenderer(ResourceName texture, TileSpinningWheel tile)
+    public TileSpinningWheelRenderer(ResourceName texture, SpinningWheelTile tile)
     {
         super(texture, tile);
     }
 
     @Override
-    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileSpinningWheel tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
+    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, SpinningWheelTile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
     {
         Pos2 innerCoord = tile.getInnerCoord(state);
         Pos2 main = tile.getMainPos(x, y, state);

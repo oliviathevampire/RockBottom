@@ -9,9 +9,9 @@ import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-import de.ellpeck.rockbottom.world.tile.TileWoodDoor;
+import de.ellpeck.rockbottom.world.tile.WoodDoorTile;
 
-public class TileDoorRenderer extends DefaultTileRenderer<TileWoodDoor> {
+public class TileDoorRenderer extends DefaultTileRenderer<WoodDoorTile> {
 
     private final ResourceName[] texClosed;
     private final ResourceName[] texOpen;
@@ -29,7 +29,7 @@ public class TileDoorRenderer extends DefaultTileRenderer<TileWoodDoor> {
     }
 
     @Override
-    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileWoodDoor tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
+    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, WoodDoorTile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
         int half = state.get(StaticTileProps.TOP_HALF) ? 0 : 1;
 
         ResourceName tex;

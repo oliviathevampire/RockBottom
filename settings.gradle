@@ -1,7 +1,7 @@
 include ":API"
-project(":API").projectDir = file("../API")
+project(":API").projectDir = file("API")
 
 gradle.ext.proguardDir = '../proguard/lib'
 
 include ":Assets"
-project(":Assets").projectDir = file("../Assets")
+project(":Assets").projectDir = file("Assets")

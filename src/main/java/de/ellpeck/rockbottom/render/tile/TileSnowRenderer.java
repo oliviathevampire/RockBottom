@@ -8,23 +8,23 @@ import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-import de.ellpeck.rockbottom.world.tile.TileSnow;
+import de.ellpeck.rockbottom.world.tile.SnowTile;
 
-public class TileSnowRenderer extends DefaultTileRenderer<TileSnow> {
+public class TileSnowRenderer extends DefaultTileRenderer<SnowTile> {
 
     public TileSnowRenderer(ResourceName texture) {
         super(texture);
     }
 
     @Override
-    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileSnow tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
+    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, SnowTile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
         if (layer != TileLayer.MAIN) {
             super.render(game, manager, g, world, tile, state, x, y, layer, renderX, renderY, scale, light);
         }
     }
 
     @Override
-    public void renderInForeground(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileSnow tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
+    public void renderInForeground(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, SnowTile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
         if (layer == TileLayer.MAIN) {
             super.render(game, manager, g, world, tile, state, x, y, layer, renderX, renderY, scale, light);
         }

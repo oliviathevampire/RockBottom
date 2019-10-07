@@ -10,17 +10,17 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 import de.ellpeck.rockbottom.gui.GuiSign;
-import de.ellpeck.rockbottom.world.tile.TileSign;
+import de.ellpeck.rockbottom.world.tile.SignTile;
 import de.ellpeck.rockbottom.world.tile.entity.TileEntitySign;
 
-public class TileSignRenderer extends DefaultTileRenderer<TileSign> {
+public class TileSignRenderer extends DefaultTileRenderer<SignTile> {
 
     public TileSignRenderer(ResourceName texture) {
         super(texture);
     }
 
     @Override
-    public void renderOnMouseOver(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileSign tile, TileState state, int x, int y, TileLayer layer, float mouseX, float mouseY) {
+    public void renderOnMouseOver(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, SignTile tile, TileState state, int x, int y, TileLayer layer, float mouseX, float mouseY) {
         AbstractEntityPlayer player = game.getPlayer();
         if (player.isInRange(g.getMousedTileX(), g.getMousedTileY(), player.getRange())) {
             TileEntitySign tileEntity = world.getTileEntity(x, y, TileEntitySign.class);

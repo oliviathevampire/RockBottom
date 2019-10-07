@@ -3,7 +3,7 @@ package de.ellpeck.rockbottom.gui.menu.background;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.gui.IMainMenuTheme;
-import de.ellpeck.rockbottom.api.tile.TileMeta;
+import de.ellpeck.rockbottom.api.tile.MetaTile;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.gen.INoiseGen;
@@ -29,7 +29,7 @@ public class NatureTheme implements IMainMenuTheme {
         if (state.getTile().isAir()) {
             if (Util.RANDOM.nextFloat() >= 0.45F) {
                 if (grid[x][y - 1].getTile().isFullTile()) {
-                    TileMeta tile = GameContent.TILE_GRASS_TUFT;
+                    MetaTile tile = GameContent.TILE_GRASS_TUFT;
                     int type = Util.floor(Util.RANDOM.nextDouble() * (double) tile.metaProp.getVariants());
                     return tile.getDefState().prop(tile.metaProp, type);
                 }

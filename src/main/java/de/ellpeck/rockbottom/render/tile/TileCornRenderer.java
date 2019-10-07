@@ -9,9 +9,9 @@ import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-import de.ellpeck.rockbottom.world.tile.TileCorn;
+import de.ellpeck.rockbottom.world.tile.CornTile;
 
-public class TileCornRenderer extends DefaultTileRenderer<TileCorn> {
+public class TileCornRenderer extends DefaultTileRenderer<CornTile> {
 
     private final ResourceName[][] textures;
 
@@ -26,11 +26,11 @@ public class TileCornRenderer extends DefaultTileRenderer<TileCorn> {
     }
 
     @Override
-    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileCorn tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
+    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, CornTile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
     }
 
     @Override
-    public void renderInForeground(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileCorn tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
+    public void renderInForeground(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, CornTile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
         int top = state.get(StaticTileProps.TOP_HALF) ? 1 : 0;
         int variant = state.get(StaticTileProps.PLANT_GROWTH);
         manager.getTexture(this.textures[top][variant]).draw(renderX, renderY, scale, scale, light);

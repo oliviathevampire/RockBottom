@@ -34,6 +34,7 @@ import de.ellpeck.rockbottom.gui.component.ComponentHotbarSlot;
 import de.ellpeck.rockbottom.gui.component.ComponentSkill;
 import de.ellpeck.rockbottom.gui.menu.background.MainMenuBackground;
 import de.ellpeck.rockbottom.init.RockBottom;
+import de.ellpeck.rockbottom.render.cutscene.CutsceneManager;
 import de.ellpeck.rockbottom.render.entity.PlayerEntityRenderer;
 import de.ellpeck.rockbottom.world.entity.player.EntityPlayer;
 
@@ -159,6 +160,9 @@ public class GuiManager implements IGuiManager {
     }
 
     public void render(RockBottom game, IAssetManager manager, IRenderer g, EntityPlayer player) {
+        if (CutsceneManager.getInstance().hideGui() && (gui == null || !gui.doesPauseGame())) {
+            return;
+        }
         int actualColor = game.getSettings().guiColor;
         if (rainbowMode) {
             game.getSettings().guiColor = Colors.rainbow((Util.getTimeMillis() / 20) % 256);
