@@ -4,7 +4,7 @@ import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.assets.texture.ITexture;
-import de.ellpeck.rockbottom.api.render.tile.TileMetaRenderer;
+import de.ellpeck.rockbottom.api.render.tile.MetaTileRenderer;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Colors;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
@@ -12,9 +12,9 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 import de.ellpeck.rockbottom.world.tile.GrassTuftTile;
 
-public class TileGrassTuftRenderer extends TileMetaRenderer<GrassTuftTile> {
+public class GrassTuftTileRenderer extends MetaTileRenderer<GrassTuftTile> {
 
-    public TileGrassTuftRenderer(ResourceName texture) {
+    public GrassTuftTileRenderer(ResourceName texture) {
         super(texture);
     }
 

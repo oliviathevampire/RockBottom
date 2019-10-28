@@ -9,19 +9,17 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-import de.ellpeck.rockbottom.world.tile.TileCombiner;
-import de.ellpeck.rockbottom.world.tile.TileSimpleFurnace;
+import de.ellpeck.rockbottom.world.tile.CombinerTile;
 import de.ellpeck.rockbottom.world.tile.entity.TileEntityCombiner;
-import de.ellpeck.rockbottom.world.tile.entity.TileEntitySimpleFurnace;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class TileCombinerRenderer extends MultiTileRenderer<TileCombiner> {
+public class TileCombinerRenderer extends MultiTileRenderer<CombinerTile> {
 
     protected final Map<Pos2, ResourceName> texturesActive = new HashMap<>();
 
-    public TileCombinerRenderer(ResourceName texture, TileCombiner tile) {
+    public TileCombinerRenderer(ResourceName texture, CombinerTile tile) {
         super(texture, tile);
 
         for (int x = 0; x < tile.getWidth(); x++) {
@@ -34,7 +32,7 @@ public class TileCombinerRenderer extends MultiTileRenderer<TileCombiner> {
     }
 
     @Override
-    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileCombiner tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
+    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, CombinerTile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
         Pos2 main = tile.getMainPos(x, y, state);
         TileEntityCombiner tileEntity = world.getTileEntity(layer, main.getX(), main.getY(), TileEntityCombiner.class);
 

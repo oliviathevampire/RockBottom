@@ -1,3 +1,4 @@
+/*
 package de.ellpeck.rockbottom.gui.menu.background;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -40,3 +41,4 @@ public class WhiteDesertTheme implements IMainMenuTheme {
         return WorldRenderer.SKY_COLORS[WorldRenderer.SKY_COLORS.length - 1];
     }
 }
+*/

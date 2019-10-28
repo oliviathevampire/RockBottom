@@ -12,7 +12,7 @@ import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-import de.ellpeck.rockbottom.render.tile.TileGrassTuftRenderer;
+import de.ellpeck.rockbottom.render.tile.GrassTuftTileRenderer;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +28,7 @@ public class GrassTuftTile extends MetaTile {
 
     @Override
     protected ITileRenderer createRenderer(ResourceName name) {
-        return new TileGrassTuftRenderer(name);
+        return new GrassTuftTileRenderer(name);
     }
 
     @Override

@@ -51,6 +51,7 @@ import de.ellpeck.rockbottom.net.packet.toserver.PacketShiftClick;
 import de.ellpeck.rockbottom.world.entity.EntityItem;
 import de.ellpeck.rockbottom.world.entity.player.InteractionManager;
 import de.ellpeck.rockbottom.world.entity.player.statistics.StatisticList;
+import de.ellpeck.rockbottom.world.tile.WaterTile;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;

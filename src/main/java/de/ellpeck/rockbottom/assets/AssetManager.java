@@ -66,8 +66,8 @@ public class AssetManager implements IAssetManager, IDisposable {
         Registries.MAIN_MENU_THEMES.register(0, new StoneTheme());
         Registries.MAIN_MENU_THEMES.register(1, new NatureTheme());
         Registries.MAIN_MENU_THEMES.register(2, new DesertTheme());
-        Registries.MAIN_MENU_THEMES.register(3, new RedDesertTheme());
-        Registries.MAIN_MENU_THEMES.register(4, new WhiteDesertTheme());
+//        Registries.MAIN_MENU_THEMES.register(3, new RedDesertTheme());
+//        Registries.MAIN_MENU_THEMES.register(4, new WhiteDesertTheme());
     }
 
     private final TextureStitcher stitcher = new TextureStitcher();

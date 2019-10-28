@@ -14,31 +14,35 @@ import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
+import de.ellpeck.rockbottom.gui.GuiCombiner;
 import de.ellpeck.rockbottom.gui.GuiSimpleFurnace;
+import de.ellpeck.rockbottom.gui.container.ContainerCombiner;
 import de.ellpeck.rockbottom.gui.container.ContainerSimpleFurnace;
+import de.ellpeck.rockbottom.render.tile.TileCombinerRenderer;
 import de.ellpeck.rockbottom.render.tile.TileSimpleFurnaceRenderer;
+import de.ellpeck.rockbottom.world.tile.entity.TileEntityCombiner;
 import de.ellpeck.rockbottom.world.tile.entity.TileEntitySimpleFurnace;
 
 import java.util.Collections;
 import java.util.List;
 
-public class TileSimpleFurnace extends MultiTile {
+public class CombinerTile extends MultiTile {
 
-    public TileSimpleFurnace() {
-        super(ResourceName.intern("simple_furnace"));
+    public CombinerTile() {
+        super(ResourceName.intern("combiner"));
     }
 
     @Override
     public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player) {
         Pos2 main = this.getMainPos(x, y, world.getState(layer, x, y));
-        TileEntitySimpleFurnace tile = world.getTileEntity(layer, main.getX(), main.getY(), TileEntitySimpleFurnace.class);
-        return tile != null && player.openGuiContainer(new GuiSimpleFurnace(player, tile), new ContainerSimpleFurnace(player, tile));
+        TileEntityCombiner tile = world.getTileEntity(layer, main.getX(), main.getY(), TileEntityCombiner.class);
+        return tile != null && player.openGuiContainer(new GuiCombiner(player, tile), new ContainerCombiner(player, tile));
     }
 
     @Override
     public int getLight(IWorld world, int x, int y, TileLayer layer) {
         Pos2 main = this.getMainPos(x, y, world.getState(layer, x, y));
-        TileEntitySimpleFurnace tile = world.getTileEntity(layer, main.getX(), main.getY(), TileEntitySimpleFurnace.class);
+        TileEntityCombiner tile = world.getTileEntity(layer, main.getX(), main.getY(), TileEntityCombiner.class);
         return tile != null && tile.isActive() ? 70 : 0;
     }
 
@@ -49,7 +53,8 @@ public class TileSimpleFurnace extends MultiTile {
 
     @Override
     public List<BoundBox> getPlatformBounds(IWorld world, int x, int y, TileLayer layer, TileState state, MovableWorldObject object, BoundBox objectBox, BoundBox objectBoxMotion) {
-        if (layer == TileLayer.MAIN && !this.isMainPos(x, y, state))
+        Pos2 mainPosUp = this.getMainPos(x, y, state).add(0, 1);
+        if (layer == TileLayer.MAIN && mainPosUp.getY() == y)
             return RockBottomAPI.getApiHandler().getDefaultPlatformBounds(world, x, y, layer, 1, 4/12d, state, object, objectBox);
         else
             return Collections.emptyList();
@@ -62,7 +67,7 @@ public class TileSimpleFurnace extends MultiTile {
 
     @Override
     public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer) {
-        return this.isMainPos(x, y, world.getState(layer, x, y)) ? new TileEntitySimpleFurnace(world, x, y, layer) : null;
+        return this.isMainPos(x, y, world.getState(layer, x, y)) ? new TileEntityCombiner(world, x, y, layer) : null;
     }
 
     @Override
@@ -82,20 +87,20 @@ public class TileSimpleFurnace extends MultiTile {
 
     @Override
     protected ITileRenderer createRenderer(ResourceName name) {
-        return new TileSimpleFurnaceRenderer(name, this);
+        return new TileCombinerRenderer(name, this);
     }
 
     @Override
     protected boolean[][] makeStructure() {
         return new boolean[][]{
-                {true},
-                {true}
+                {true, true},
+                {true, true}
         };
     }
 
     @Override
     public int getWidth() {
-        return 1;
+        return 2;
     }
 
     @Override
@@ -117,7 +122,7 @@ public class TileSimpleFurnace extends MultiTile {
     public void updateRandomlyInPlayerView(IWorld world, int x, int y, TileLayer layer, TileState state, IParticleManager manager) {
         if (Util.RANDOM.nextFloat() >= 0.25F) {
             Pos2 main = this.getMainPos(x, y, world.getState(layer, x, y));
-            TileEntitySimpleFurnace tile = world.getTileEntity(layer, main.getX(), main.getY(), TileEntitySimpleFurnace.class);
+            TileEntityCombiner tile = world.getTileEntity(layer, main.getX(), main.getY(), TileEntityCombiner.class);
             if (tile.isActive()) {
                 if (x == main.getX() && y == main.getY()) {
                     if (Util.RANDOM.nextBoolean()) {

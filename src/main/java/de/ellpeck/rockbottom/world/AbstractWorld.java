@@ -971,9 +971,7 @@ public abstract class AbstractWorld implements IWorld {
 
             List<Pos2> persistentChunks = new ArrayList<>();
 
-            for (int i = 0; i < this.loadedChunks.size(); i++) {
-                IChunk chunk = this.loadedChunks.get(i);
-
+            for (IChunk chunk : this.loadedChunks) {
                 this.saveChunk(chunk, false);
 
                 if (chunk.doesEntityForcePersistence()) {

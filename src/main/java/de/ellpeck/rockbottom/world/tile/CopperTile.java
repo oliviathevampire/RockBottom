@@ -8,7 +8,7 @@ import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-import de.ellpeck.rockbottom.render.tile.TileCopperRenderer;
+import de.ellpeck.rockbottom.render.tile.OreTileRenderer;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class CopperTile extends OreMaterialTile {
 
     @Override
     protected ITileRenderer createRenderer(ResourceName name) {
-        return new TileCopperRenderer(name);
+        return new OreTileRenderer<CopperTile>(name, true);
     }
 
     @Override

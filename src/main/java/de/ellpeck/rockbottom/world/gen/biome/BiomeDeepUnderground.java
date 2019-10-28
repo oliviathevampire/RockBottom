@@ -1,3 +1,4 @@
+/*
 package de.ellpeck.rockbottom.world.gen.biome;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -35,3 +36,4 @@ public class BiomeDeepUnderground extends BiomeBasic {
         return GameContent.TILE_COMPRESSED_STONE.getDefState();
     }
 }
+*/

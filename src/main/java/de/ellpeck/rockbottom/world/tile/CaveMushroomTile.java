@@ -8,7 +8,7 @@ import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-import de.ellpeck.rockbottom.render.tile.TileCaveMushroomRenderer;
+import de.ellpeck.rockbottom.render.tile.CaveMushroomTileRenderer;
 
 public class CaveMushroomTile extends MetaTile {
 
@@ -21,7 +21,7 @@ public class CaveMushroomTile extends MetaTile {
 
     @Override
     protected ITileRenderer createRenderer(ResourceName name) {
-        return new TileCaveMushroomRenderer(name);
+        return new CaveMushroomTileRenderer(name);
     }
 
     @Override
@@ -34,6 +34,10 @@ public class CaveMushroomTile extends MetaTile {
         return null;
     }
 
+    /*@Override
+    public int getLight(IWorld world, int x, int y, TileLayer layer) {
+        return 20;
+    }*/
 
     @Override
     public boolean canStay(IWorld world, int x, int y, TileLayer layer, int changedX, int changedY, TileLayer changedLayer) {

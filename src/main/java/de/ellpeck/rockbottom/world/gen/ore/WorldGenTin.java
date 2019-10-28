@@ -38,7 +38,7 @@ public class WorldGenTin extends WorldGenOre {
 
     @Override
     protected TileState getOreState() {
-        return GameContent.TILE_TIN.getDefState();
+        return GameContent.TILE_BRONZE.getDefState();
     }
 
     @Override
