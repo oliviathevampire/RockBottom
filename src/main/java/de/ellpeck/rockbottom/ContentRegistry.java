@@ -8,6 +8,8 @@ import de.ellpeck.rockbottom.api.effect.BasicEffect;
 import de.ellpeck.rockbottom.api.item.*;
 import de.ellpeck.rockbottom.api.tile.BasicTile;
 import de.ellpeck.rockbottom.api.tile.PlatformTile;
+import de.ellpeck.rockbottom.api.tile.TileBasic;
+import de.ellpeck.rockbottom.api.tile.TilePlatform;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.gen.biome.level.BiomeLevel;
 import de.ellpeck.rockbottom.api.world.gen.biome.level.BiomeLevelBasic;
@@ -25,6 +27,7 @@ import de.ellpeck.rockbottom.world.gen.feature.*;
 import de.ellpeck.rockbottom.world.gen.ore.WorldGenBronze;
 import de.ellpeck.rockbottom.world.gen.ore.WorldGenCoal;
 import de.ellpeck.rockbottom.world.gen.ore.WorldGenCopper;
+import de.ellpeck.rockbottom.world.gen.ore.WorldGenTin;
 import de.ellpeck.rockbottom.world.tile.*;
 
 public final class ContentRegistry {
@@ -78,6 +81,47 @@ public final class ContentRegistry {
         new PlatformTile().register();
         new BasicTile(ResourceName.intern("netherrack")).register();
         new BedTile(ResourceName.intern("red_bed")).register();
+        
+        new TileAir().register();
+        new TileSoil().register();
+        new TileGrass().register();
+        new TileBasic(ResourceName.intern("stone")).setChiselable().register();
+        new TileGrassTuft().register();
+        new TileLog().register();
+        new TileLeaves().register();
+        new TileFlower().register();
+        new TilePebbles().register();
+        new TileFalling(ResourceName.intern("sand")).register();
+        new TileBasic(ResourceName.intern("sandstone")).setChiselable().register();
+        new TileOreMaterial(ResourceName.intern("coal")).register();
+        new TileTorch(ResourceName.intern("torch")).register();
+        new TileSnow().register();
+        new TileLadder().register();
+        new TileChest().register();
+        new TileSign().register();
+        new TileSapling().register();
+        new TileWater().register();
+        new TileWoodBoards().setChiselable().register();
+        new TileWoodDoor(ResourceName.intern("wood_door")).register();
+        new TileWoodDoor(ResourceName.intern("wood_door_old")).register();
+        new TileRemainsGoo().register();
+        new TileGrassTorch().register();
+        new TileCopper().register();
+        new TileOreMaterial(ResourceName.intern("tin")).register();
+        new TileSpinningWheel().register();
+        new TileSimpleFurnace().register();
+        new TileCombiner().register();
+        new TileConstructionTable().register();
+        new TileSmithingTable().register();
+        new TileCaveMushroom().register();
+        new TileStardrop().register();
+        new TileLamp(ResourceName.intern("lamp_iron")).register();
+        new TileMortar().register();
+        new TileTilledSoil().register();
+        new TileCorn().register();
+        new TileCotton().register();
+        new TileGlass().register();
+        new TilePlatform().register();
 
         new ItemTool(ResourceName.intern("brittle_pickaxe"), 1.5F, 50, ToolProperty.PICKAXE, 1).register();
         new ItemTool(ResourceName.intern("brittle_axe"), 1.25F, 50, ToolProperty.AXE, 1).register();
@@ -107,12 +151,13 @@ public final class ContentRegistry {
         new ItemTool(ResourceName.intern("copper_shovel"), 2F, 350, ToolProperty.SHOVEL, 10).register();
         new ItemSword(ResourceName.intern("copper_sword"), 350, 12, 30, 2D, 0.35D).register();
 
+        new ItemBasic(ResourceName.intern("tin_ingot")).register();
         new ItemBasic(ResourceName.intern("bronze_ingot")).register();
-        new ItemTool(ResourceName.intern("bronze_pickaxe"), 4F, 350, ToolProperty.PICKAXE, 10).register();
-        new ItemTool(ResourceName.intern("bronze_axe"), 2F, 350, ToolProperty.AXE, 10).register();
-        new ItemTool(ResourceName.intern("bronze_shovel"), 2F, 350, ToolProperty.SHOVEL, 10).register();
-        new ItemSword(ResourceName.intern("bronze_sword"), 350, 12, 30, 2D, 0.35D).register();
-
+        new ItemTool(ResourceName.intern("bronze_pickaxe"), 6F, 650, ToolProperty.PICKAXE, 20).register();
+        new ItemTool(ResourceName.intern("bronze_axe"), 4F, 650, ToolProperty.AXE, 20).register();
+        new ItemTool(ResourceName.intern("bronze_shovel"), 4F, 650, ToolProperty.SHOVEL, 20).register();
+        new ItemSword(ResourceName.intern("bronze_sword"), 650, 15, 30, 2D, 0.4D).register();
+        new ItemStorageContainer(ResourceName.intern("bronze_canister"), 4).register();
         new ItemRecipeNote().register();
         new ItemBowl().register();
         new ItemTool(ResourceName.intern("pestle"), 1F, 64, ToolProperty.PESTLE, 1).register();
@@ -141,6 +186,7 @@ public final class ContentRegistry {
         Registries.ENTITY_REGISTRY.register(ResourceName.intern("firework"), EntityFirework.class);
         Registries.ENTITY_REGISTRY.register(ResourceName.intern("slime"), EntitySlime.class);
         Registries.ENTITY_REGISTRY.register(ResourceName.intern("boomerang"), EntityBoomerang.class);
+        Registries.ENTITY_REGISTRY.register(ResourceName.intern("fire"), EntityFire.class);
 
         Registries.WORLD_GENERATORS.register(WorldGenBiomes.ID, WorldGenBiomes.class);
         Registries.WORLD_GENERATORS.register(WorldGenHeights.ID, WorldGenHeights.class);
@@ -152,6 +198,7 @@ public final class ContentRegistry {
         Registries.WORLD_GENERATORS.register(ResourceName.intern("start_hut"), WorldGenStartHut.class);
         Registries.WORLD_GENERATORS.register(ResourceName.intern("copper"), WorldGenCopper.class);
         Registries.WORLD_GENERATORS.register(ResourceName.intern("bronze"), WorldGenBronze.class);
+        Registries.WORLD_GENERATORS.register(ResourceName.intern("tin"), WorldGenTin.class);
         Registries.WORLD_GENERATORS.register(ResourceName.intern("caves"), WorldGenCaves.class);
         Registries.WORLD_GENERATORS.register(ResourceName.intern("cave_mushrooms"), WorldGenCaveMushrooms.class);
         Registries.WORLD_GENERATORS.register(ResourceName.intern("stardrops"), WorldGenStardrops.class);

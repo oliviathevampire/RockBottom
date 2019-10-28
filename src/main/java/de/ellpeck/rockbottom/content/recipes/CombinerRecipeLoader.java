@@ -6,6 +6,7 @@ import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
+import de.ellpeck.rockbottom.api.construction.smelting.CombinerRecipe;
 import de.ellpeck.rockbottom.api.construction.smelting.SmeltingRecipe;
 import de.ellpeck.rockbottom.api.content.IContentLoader;
 import de.ellpeck.rockbottom.api.content.pack.ContentPack;
@@ -16,33 +17,35 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SmeltingRecipeLoader implements IContentLoader<SmeltingRecipe> {
+public class CombinerRecipeLoader implements IContentLoader<CombinerRecipe> {
 
     private final Set<ResourceName> disabled = new HashSet<>();
 
     @Override
     public ResourceName getContentIdentifier() {
-        return SmeltingRecipe.ID;
+        return CombinerRecipe.ID;
     }
 
     @Override
     public void loadContent(IGameInstance game, ResourceName resourceName, String path, JsonElement element, String elementName, IMod loadingMod, ContentPack pack) throws Exception {
+        System.out.println("COMBINER RECIPE LOADER");
         if (!this.disabled.contains(resourceName)) {
-            if (Registries.SMELTING_REGISTRY.get(resourceName) != null) {
-                RockBottomAPI.logger().info("Smelting recipe with name " + resourceName + " already exists, not adding recipe for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName());
+            if (Registries.COMBINER_REGISTRY.get(resourceName) != null) {
+                RockBottomAPI.logger().info("Combiner recipe with name " + resourceName + " already exists, not adding recipe for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName());
             } else {
                 JsonObject object = getRecipeObject(game, path + element.getAsString());
 
                 int time = object.get("time").getAsInt();
                 ItemInstance output = readItemInstance(object.get("output").getAsJsonObject());
-                IUseInfo input = readUseInfo(object.get("input").getAsJsonObject());
+                IUseInfo input1 = readUseInfo(object.get("input1").getAsJsonObject());
+                IUseInfo input2 = readUseInfo(object.get("input2").getAsJsonObject());
 
-                new SmeltingRecipe(resourceName, input, output, time).register();
+                new CombinerRecipe(resourceName, input1, input2, output, time).register();
 
-                RockBottomAPI.logger().config("Loaded smelting recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with time " + time + ", input " + input + " and output " + output + " with content pack " + pack.getName());
+                RockBottomAPI.logger().config("Loaded combiner recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with time " + time + ", input 1 " + input1 + ", input 2 " + input2 + " and output " + output + " with content pack " + pack.getName());
             }
         } else {
-            RockBottomAPI.logger().info("Smelting recipe " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");
+            RockBottomAPI.logger().info("Combiner recipe " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");
         }
     }
 

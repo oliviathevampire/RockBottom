@@ -46,6 +46,7 @@ import de.ellpeck.rockbottom.net.server.ConnectedPlayer;
 import de.ellpeck.rockbottom.particle.ParticleManager;
 import de.ellpeck.rockbottom.render.WorldRenderer;
 import de.ellpeck.rockbottom.render.cutscene.CutsceneManager;
+import de.ellpeck.rockbottom.render.design.DefaultPlayerDesign;
 import de.ellpeck.rockbottom.render.design.PlayerDesign;
 import de.ellpeck.rockbottom.util.ChangelogManager;
 import de.ellpeck.rockbottom.util.CrashManager;
@@ -304,13 +305,7 @@ public class RockBottom extends AbstractGame {
             FileReader reader = new FileReader(this.dataManager.getPlayerDesignFile());
             this.playerDesign = Util.GSON.fromJson(reader, PlayerDesign.class);
         } catch (Exception e) {
-            this.playerDesign = new PlayerDesign();
-        }
-
-        if (Strings.isNullOrEmpty(this.playerDesign.getName())) {
-            PlayerDesign.randomizeDesign(this.playerDesign);
-            RockBottomAPI.logger().info("Randomizing player design");
-
+            this.playerDesign = new DefaultPlayerDesign();
             savePlayerDesign(this, this.playerDesign);
         }
     }
