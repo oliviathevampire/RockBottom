@@ -42,6 +42,6 @@ public class WorldGenCoal extends WorldGenOre {
 
     @Override
     protected Set<Biome> getAllowedBiomes() {
-        return Sets.newHashSet(GameContent.BIOME_GRASSLAND, GameContent.BIOME_UNDERGROUND);
+        return Sets.newHashSet(GameContent.BIOME_GRASSLAND, GameContent.BIOME_DEEP_UNDERGROUND);
     }
 }

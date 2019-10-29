@@ -1,6 +1,10 @@
 package de.ellpeck.rockbottom.world.gen.biome;
 
 import de.ellpeck.rockbottom.api.GameContent;
+import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.IRenderer;
+import de.ellpeck.rockbottom.api.assets.IAssetManager;
+import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
@@ -33,6 +37,13 @@ public class BiomeGrassland extends BiomeBasic {
             }
         }
         return GameContent.TILE_AIR.getDefState();
+    }
+
+    @Override
+    public boolean renderBackground(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, AbstractEntityPlayer player, double width, double height) {
+        manager.getTexture(ResourceName.intern("biome_parralax.plains_sky")).draw(0, 0, (float) (width * g.getWorldScale()), 1200F);
+        manager.getTexture(ResourceName.intern("biome_parralax.plains_grass")).draw(0, -20, (float) (width * g.getWorldScale()), 1200.0F);
+        return true;
     }
 
     @Override

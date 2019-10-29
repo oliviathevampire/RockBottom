@@ -10,9 +10,9 @@ import de.ellpeck.rockbottom.api.world.gen.biome.BiomeBasic;
 import de.ellpeck.rockbottom.api.world.gen.biome.level.BiomeLevel;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class BiomeHell extends BiomeBasic {
+public class HellBiome extends BiomeBasic {
 
-    public BiomeHell(ResourceName name, int weight, BiomeLevel... levels) {
+    public HellBiome(ResourceName name, int weight, BiomeLevel... levels) {
         super(name, weight, levels);
     }
 

@@ -80,16 +80,21 @@ public final class ContentRegistry {
         new CottonTile().register();
         new GlassTile().register();
         new PlatformTile().register();
+        new BasicTile(ResourceName.intern("nether_bricks")).register();
+        new BasicTile(ResourceName.intern("nether_quartz_ore")).register();
+        new BasicTile(ResourceName.intern("nether_wart_block")).register();
         new BasicTile(ResourceName.intern("netherack")).register();
+        new BasicTile(ResourceName.intern("obsidian")).register();
+        new PortalTile(ResourceName.intern("nether_portal")).register();
+
         new BedTile(ResourceName.intern("red_bed")).register();
-        new NewBasicTile(ResourceName.intern("scary_block_one")).register();
-        new NewBasicTile(ResourceName.intern("scary_block_two")).register();
-        new NewBasicTile(ResourceName.intern("nightstone")).register();
-        new NewBasicTile(ResourceName.intern("nightstone_bricks")).register();
-        new NewBasicTile(ResourceName.intern("rockshroom")).register();
-        new NewBasicTile(ResourceName.intern("rockshroom_bricks")).register();
-        new NewBasicTile(ResourceName.intern("trenchstone")).register();
-        new NewBasicTile(ResourceName.intern("trenchstone_bricks")).register();
+
+        new NewBasicTile(ResourceName.intern("shadow_stone")).register();
+        new NewBasicTile(ResourceName.intern("shadow_grass")).register();
+        new NewBasicTile(ResourceName.intern("shadow_dirt")).register();
+        new NewBasicTile(ResourceName.intern("shadow_stone_bricks")).register();
+        new NewBasicTile(ResourceName.intern("chiseled_shadow_stone")).register();
+        new PortalTile(ResourceName.intern("shadow_portal")).register();
 
         new ItemTool(ResourceName.intern("brittle_pickaxe"), 1.5F, 50, ToolProperty.PICKAXE, 1).register();
         new ItemTool(ResourceName.intern("brittle_axe"), 1.25F, 50, ToolProperty.AXE, 1).register();
@@ -136,12 +141,17 @@ public final class ContentRegistry {
         new ItemBoomerang(ResourceName.intern("wood_boomerang"), 50, 4, 0.25, 8).register();
         new ItemTool(ResourceName.intern("simple_hoe"), 1F, 50, ToolProperty.HOE, 1).register();
 
-        BiomeLevel sky = new BiomeLevelBasic(ResourceName.intern("sky"), 15, Integer.MAX_VALUE, false, 0).register();
+        BiomeLevel heaven = new BiomeLevelBasic(ResourceName.intern("heaven"), 135, Integer.MAX_VALUE, false, 0).register();
+        BiomeLevel end = new BiomeLevelBasic(ResourceName.intern("end"), 85, 135, false, 0).register();
+        BiomeLevel sky = new BiomeLevelBasic(ResourceName.intern("sky"), 15, 85, false, 0).register();
         BiomeLevel surface = new BiomeLevelBasic(ResourceName.intern("surface"), -10, 15, true, 1000).register();
         BiomeLevel underground = new BiomeLevelBasic(ResourceName.intern("underground"), -40, -10, false, 500).register();
         BiomeLevel deepUnderground = new BiomeLevelBasic(ResourceName.intern("deep_underground"), -90, -40, false, 500).register();
-        BiomeLevel hell = new BiomeLevelBasic(ResourceName.intern("hell"), -110, -90, false, 500).register();
+        BiomeLevel theShadow = new BiomeLevelBasic(ResourceName.intern("the_shadow"), -110, -90, false, 500).register();
+        BiomeLevel hell = new BiomeLevelBasic(ResourceName.intern("hell"), Integer.MIN_VALUE, -110, false, 500).register();
 
+        new BiomeSky(ResourceName.intern("heaven"), 1000, heaven).register();
+        new BiomeSky(ResourceName.intern("end"), 1000, end).register();
         new BiomeSky(ResourceName.intern("sky"), 1000, sky).register();
         new BiomeGrassland(ResourceName.intern("grassland"), 1000, surface).register();
         new BiomeDesert(ResourceName.intern("desert"), 800, surface).register();
@@ -150,7 +160,10 @@ public final class ContentRegistry {
         new BiomeColdGrassland(ResourceName.intern("cold_grassland"), surface).register();
         new BiomeUnderground(ResourceName.intern("underground"), 1000, underground).register();
         new BiomeDeepUnderground(ResourceName.intern("deep_underground"), 1000, deepUnderground).register();
-        new BiomeHell(ResourceName.intern("hell"), 1000, hell).register();
+        new ShadowPlainsGrasslands(ResourceName.intern("the_shadow"), 800, theShadow).register();
+//        new ShadowPlainsGrasslands(ResourceName.intern("shadow_swamp"), 800, theShadow).register();
+//        new ShadowPlainsGrasslands(ResourceName.intern("shadow_forest"), 800, theShadow).register();
+        new HellBiome(ResourceName.intern("hell"), 1000, hell).register();
 
         Registries.ENTITY_REGISTRY.register(ResourceName.intern("item"), EntityItem.class);
         Registries.ENTITY_REGISTRY.register(ResourceName.intern("falling"), EntityFalling.class);
