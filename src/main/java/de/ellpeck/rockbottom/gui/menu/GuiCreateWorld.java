@@ -16,6 +16,7 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.WorldInfo;
 
 import java.io.File;
+import java.util.function.Supplier;
 
 public class GuiCreateWorld extends Gui {
 
@@ -123,6 +124,8 @@ public class GuiCreateWorld extends Gui {
             this.storyMode = !this.storyMode;
             return true;
         }, "button.story_mode"));
+
+        this.components.add(new ComponentToggleButton(this, this.width / 2 - 20, 112, 80, 12, false, () -> true, "button.cheats"));
 
         this.components.add(new ComponentButton(this, this.width / 2, bottomY - 30, 80, 16, () -> {
             game.getGuiManager().openGui(this.parent);
