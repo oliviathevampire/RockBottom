@@ -148,12 +148,11 @@ public final class ContentRegistry {
         new BiomeSky(ResourceName.intern("sky"), 1000, sky).register();
         new BiomeGrassland(ResourceName.intern("grassland"), 1000, surface).register();
         new BiomeDesert(ResourceName.intern("desert"), 800, surface).register();
-//        new BiomeRedDesert(ResourceName.intern("red_desert"), 800, surface).register();
-//        new BiomeWhiteDesert(ResourceName.intern("white_desert"), 800, surface).register();
+        new BiomeRedDesert(ResourceName.intern("red_desert"), 800, surface).register();
+        new BiomeWhiteDesert(ResourceName.intern("white_desert"), 800, surface).register();
         new BiomeUnderground(ResourceName.intern("underground"), 1000, underground).register();
-//        new BiomeUnderground(ResourceName.intern("deep_underground"), 1000, deepUnderground).register();
-//        new BiomeDeepUnderground(ResourceName.intern("deep_underground"), 1000, deepUnderground).register();
-//        new BiomeHell(ResourceName.intern("hell"), 1000, hell).register();
+        new BiomeDeepUnderground(ResourceName.intern("deep_underground"), 1000, deepUnderground).register();
+        new BiomeHell(ResourceName.intern("hell"), 1000, hell).register();
         new BiomeColdGrassland(ResourceName.intern("cold_grassland")).register();
 
         Registries.ENTITY_REGISTRY.register(ResourceName.intern("item"), EntityItem.class);

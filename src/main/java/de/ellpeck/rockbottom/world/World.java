@@ -44,7 +44,7 @@ public class World extends AbstractWorld {
     public final List<AbstractEntityPlayer> players = new ArrayList<>();
     protected final List<AbstractEntityPlayer> playersUnmodifiable = Collections.unmodifiableList(this.players);
     protected final WorldInfo info;
-    private final List<SubWorld> subWorlds;
+    private List<SubWorld> subWorlds;
     private final DynamicRegistryInfo regInfo;
     protected File playerDirectory;
     protected int saveTicksCounter;
@@ -79,7 +79,7 @@ public class World extends AbstractWorld {
 
                 RockBottomAPI.logger().info("Initialized sub world " + world.getName() + " for world " + this.getName());
             }
-            this.subWorlds = Collections.unmodifiableList(subs);
+            this.addSubWorld(subs);
 
             RockBottomAPI.logger().info("Initialized a total of " + this.subWorlds.size() + " sub worlds for world " + this.getName());
         } else {
@@ -89,6 +89,10 @@ public class World extends AbstractWorld {
 
     private static EntityPlayer makePlayer(IWorld world, UUID id, IPlayerDesign design, Channel channel) {
         return channel != null ? new ConnectedPlayer(world, id, design, channel) : new EntityPlayer(world, id, design);
+    }
+
+    public void addSubWorld(List<SubWorld> subs) {
+        this.subWorlds = Collections.unmodifiableList(subs);
     }
 
     @Override

@@ -1,4 +1,3 @@
-/*
 package de.ellpeck.rockbottom.world.gen.biome;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -53,4 +52,3 @@ public class BiomeRedDesert extends BiomeBasic {
         return 0.15F;
     }
 }
-*/
