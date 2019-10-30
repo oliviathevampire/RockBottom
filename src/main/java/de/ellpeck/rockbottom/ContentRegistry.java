@@ -141,29 +141,35 @@ public final class ContentRegistry {
         new ItemBoomerang(ResourceName.intern("wood_boomerang"), 50, 4, 0.25, 8).register();
         new ItemTool(ResourceName.intern("simple_hoe"), 1F, 50, ToolProperty.HOE, 1).register();
 
-        BiomeLevel heaven = new BiomeLevelBasic(ResourceName.intern("heaven"), 135, Integer.MAX_VALUE, false, 0).register();
-        BiomeLevel end = new BiomeLevelBasic(ResourceName.intern("end"), 85, 135, false, 0).register();
-        BiomeLevel sky = new BiomeLevelBasic(ResourceName.intern("sky"), 15, 85, false, 0).register();
+        BiomeLevel end = new BiomeLevelBasic(ResourceName.intern("end"), 85, Integer.MAX_VALUE, false, 500).register();
+        BiomeLevel sky = new BiomeLevelBasic(ResourceName.intern("sky"), 15, 85, false, 500).register();
         BiomeLevel surface = new BiomeLevelBasic(ResourceName.intern("surface"), -10, 15, true, 1000).register();
         BiomeLevel underground = new BiomeLevelBasic(ResourceName.intern("underground"), -40, -10, false, 500).register();
         BiomeLevel deepUnderground = new BiomeLevelBasic(ResourceName.intern("deep_underground"), -90, -40, false, 500).register();
         BiomeLevel theShadow = new BiomeLevelBasic(ResourceName.intern("the_shadow"), -110, -90, false, 500).register();
-        BiomeLevel hell = new BiomeLevelBasic(ResourceName.intern("hell"), Integer.MIN_VALUE, -110, false, 500).register();
+        BiomeLevel hell = new BiomeLevelBasic(ResourceName.intern("hell"), -220, -110, false, 500).register();
+        BiomeLevel heaven = new BiomeLevelBasic(ResourceName.intern("heaven"), Integer.MIN_VALUE, -220, false, 500).register();
 
-        new BiomeSky(ResourceName.intern("heaven"), 1000, heaven).register();
         new BiomeSky(ResourceName.intern("end"), 1000, end).register();
+
         new BiomeSky(ResourceName.intern("sky"), 1000, sky).register();
+
         new BiomeGrassland(ResourceName.intern("grassland"), 1000, surface).register();
         new BiomeDesert(ResourceName.intern("desert"), 800, surface).register();
         new BiomeRedDesert(ResourceName.intern("red_desert"), 800, surface).register();
         new BiomeWhiteDesert(ResourceName.intern("white_desert"), 800, surface).register();
         new BiomeColdGrassland(ResourceName.intern("cold_grassland"), surface).register();
+
         new BiomeUnderground(ResourceName.intern("underground"), 1000, underground).register();
         new BiomeDeepUnderground(ResourceName.intern("deep_underground"), 1000, deepUnderground).register();
-        new ShadowPlainsGrasslands(ResourceName.intern("the_shadow"), 800, theShadow).register();
-//        new ShadowPlainsGrasslands(ResourceName.intern("shadow_swamp"), 800, theShadow).register();
-//        new ShadowPlainsGrasslands(ResourceName.intern("shadow_forest"), 800, theShadow).register();
+
+        new ShadowPlainsGrasslands(ResourceName.intern("shadow_grasslands"), 800, theShadow).register();
+        new ShadowPlainsGrasslands(ResourceName.intern("shadow_swamp"), 800, theShadow).register();
+        new ShadowPlainsGrasslands(ResourceName.intern("shadow_forest"), 800, theShadow).register();
+
         new HellBiome(ResourceName.intern("hell"), 1000, hell).register();
+
+        new BiomeSky(ResourceName.intern("heaven"), 1000, heaven).register();
 
         Registries.ENTITY_REGISTRY.register(ResourceName.intern("item"), EntityItem.class);
         Registries.ENTITY_REGISTRY.register(ResourceName.intern("falling"), EntityFalling.class);
@@ -209,7 +215,7 @@ public final class ContentRegistry {
 
         EntitySlime.SPAWN_BEHAVIOR.register();
 
-        CategoryManualConstruction.INSTANCE.register();
+        new CategoryManualConstruction().register();
         new CategoryConstructionTable().register();
         new CategorySmithingTable().register();
         new CategoryMortar().register();
