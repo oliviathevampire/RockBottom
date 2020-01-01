@@ -108,7 +108,7 @@ public class AnimationLoader implements IAssetLoader<Animation> {
                 IStitchCallback callback = (stitchX, stitchY, stitchedTexture) -> {
                     Animation animation = new Animation(stitchedTexture, finalCachedInfo.width, finalCachedInfo.height, finalCachedInfo.rows);
                     manager.addAsset(this, resourceName, animation);
-                    RockBottomAPI.logger().config("Loaded animation " + resourceName + " for mod " + loadingMod.getDisplayName());
+                    RockBottomAPI.logger().info("Loaded animation " + resourceName + " for mod " + loadingMod.getDisplayName());
                 };
 
                 if (shouldStitch) {

@@ -45,7 +45,7 @@ public class CutsceneManager {
      */
     public boolean startRecordedCutscene() {
         if (isPlaying() || isRecording()) {
-            RockBottomAPI.logger().warning("Tried to start a cutscene while the camera was already occupied!");
+            RockBottomAPI.logger().warn("Tried to start a cutscene while the camera was already occupied!");
             return false;
         }
         this.cutscene = new Cutscene(latestPath);
@@ -54,7 +54,7 @@ public class CutsceneManager {
 
     public boolean enableRecordingMode() {
         if (isPlaying()) {
-            RockBottomAPI.logger().warning("Tried to start a path recording while the camera was already occupied!");
+            RockBottomAPI.logger().warn("Tried to start a path recording while the camera was already occupied!");
             return false;
         }
         AbstractEntityPlayer player;
@@ -62,21 +62,21 @@ public class CutsceneManager {
             this.recorder = new PathRecorder((float) player.getX(), (float) player.getY(), RockBottomAPI.getGame().getSettings().renderScale * 100f);
             return true;
         }
-        RockBottomAPI.logger().warning("Tried to start a path recording when not in-game!");
+        RockBottomAPI.logger().warn("Tried to start a path recording when not in-game!");
         return false;
     }
 
     public boolean disableRecordingMode() {
         if (isPlaying()) {
-            RockBottomAPI.logger().warning("Tried to disable recording mode while a cutscene was playing!");
+            RockBottomAPI.logger().warn("Tried to disable recording mode while a cutscene was playing!");
             return false;
         } else if (recorder == null) {
-            RockBottomAPI.logger().warning("Tried to disable recording mode without enabling it first!");
+            RockBottomAPI.logger().warn("Tried to disable recording mode without enabling it first!");
             return false;
         }
         IGameInstance game = RockBottomAPI.getGame();
         if (game == null) {
-            RockBottomAPI.logger().warning("Tried to disable recording mode when not in-game!");
+            RockBottomAPI.logger().warn("Tried to disable recording mode when not in-game!");
             return false;
         }
         RecordedPath path = recorder.saveRecording();

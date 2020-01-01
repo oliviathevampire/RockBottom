@@ -41,7 +41,7 @@ public class LocaleLoader implements IAssetLoader<Locale> {
                 }
             }
 
-            RockBottomAPI.logger().config("Loaded locale " + resourceName + " for mod " + loadingMod.getDisplayName());
+            RockBottomAPI.logger().info("Loaded locale " + resourceName + " for mod " + loadingMod.getDisplayName());
             manager.addAsset(this, resourceName, locale);
         } else {
             RockBottomAPI.logger().info("Locale " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");
@@ -71,7 +71,7 @@ public class LocaleLoader implements IAssetLoader<Locale> {
             String value = element.getAsJsonPrimitive().getAsString();
 
             locale.put(new ResourceName(key), value);
-            RockBottomAPI.logger().config("Added localization " + key + " -> " + value + " to locale with name " + localeName);
+            RockBottomAPI.logger().info("Added localization " + key + " -> " + value + " to locale with name " + localeName);
         } else {
             for (Map.Entry<String, JsonElement> entry : element.getAsJsonObject().entrySet()) {
                 String key = entry.getKey();
@@ -100,7 +100,7 @@ public class LocaleLoader implements IAssetLoader<Locale> {
             Map<ResourceName, String> other = otherLocale.getLocalization();
             locale.override(other);
 
-            RockBottomAPI.logger().config("Merged locale " + name + " with " + other.size() + " bits of additional localization information");
+            RockBottomAPI.logger().info("Merged locale " + name + " with " + other.size() + " bits of additional localization information");
             return true;
         } else {
             return false;

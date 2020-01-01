@@ -100,7 +100,7 @@ public class PacketChunk implements IPacket {
     @Override
     public void handle(IGameInstance game, ChannelHandlerContext context) {
         if (game.getWorld() != null) {
-            RockBottomAPI.logger().config("Receiving chunk at " + this.chunkX + ", " + this.chunkY);
+            RockBottomAPI.logger().info("Receiving chunk at " + this.chunkX + ", " + this.chunkY);
 
             IChunk chunk = game.getWorld().getChunkFromGridCoords(this.chunkX, this.chunkY);
             chunk.setGenerating(true);

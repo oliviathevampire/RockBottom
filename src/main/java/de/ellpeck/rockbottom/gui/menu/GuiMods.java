@@ -12,8 +12,7 @@ import de.ellpeck.rockbottom.api.mod.IMod;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
-
-import java.util.logging.Level;
+import org.apache.logging.log4j.Level;
 
 public class GuiMods extends Gui {
 
@@ -56,7 +55,7 @@ public class GuiMods extends Gui {
                     game.getGuiManager().openGui(gui);
                     return true;
                 } catch (Exception e) {
-                    RockBottomAPI.logger().log(Level.WARNING, "Failed initializing mod gui for mod " + this.selectedMod.getDisplayName(), e);
+                    RockBottomAPI.logger().log(Level.WARN, "Failed initializing mod gui for mod " + this.selectedMod.getDisplayName(), e);
                 }
             }
             return false;

@@ -44,7 +44,7 @@ public class ShaderLoader implements IAssetLoader<IShaderProgram> {
 
                 ShaderProgram shader = new ShaderProgram(vertex, fragment);
                 manager.addAsset(this, resourceName, shader);
-                RockBottomAPI.logger().config("Loaded shader " + resourceName + " for mod " + loadingMod.getDisplayName());
+                RockBottomAPI.logger().info("Loaded shader " + resourceName + " for mod " + loadingMod.getDisplayName());
             }
         } else {
             RockBottomAPI.logger().info("Shader " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");

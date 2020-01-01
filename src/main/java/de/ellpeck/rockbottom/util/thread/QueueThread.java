@@ -3,10 +3,10 @@ package de.ellpeck.rockbottom.util.thread;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.init.AbstractGame;
+import org.apache.logging.log4j.Level;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.logging.Level;
 
 public class QueueThread extends Thread {
 
@@ -32,7 +32,7 @@ public class QueueThread extends Thread {
                     runnable.run();
                 }
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.WARNING, "There was an exception in the " + this.name + " thread, however it will attempt to keep running", e);
+                RockBottomAPI.logger().log(Level.WARN, "There was an exception in the " + this.name + " thread, however it will attempt to keep running", e);
             }
 
             Util.sleepSafe(1);

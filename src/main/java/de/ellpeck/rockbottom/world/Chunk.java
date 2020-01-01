@@ -32,10 +32,10 @@ import de.ellpeck.rockbottom.net.packet.toclient.PacketEntityChange;
 import de.ellpeck.rockbottom.net.packet.toclient.PacketScheduledUpdate;
 import de.ellpeck.rockbottom.net.packet.toclient.PacketTileChange;
 import de.ellpeck.rockbottom.world.entity.player.EntityPlayer;
+import org.apache.logging.log4j.Level;
 
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.logging.Level;
 
 public class Chunk implements IChunk {
 
@@ -113,7 +113,7 @@ public class Chunk implements IChunk {
 
     private void generate(List<? extends IWorldGenerator> gens) {
         if (isGeneratingChunk) {
-            RockBottomAPI.logger().log(Level.WARNING, "CHUNK GEN BLEEDING INTO DIFFERENT CHUNK AT " + this.gridX + ", " + this.gridY + "! THIS SHOULD NOT HAPPEN!", new IllegalStateException());
+            RockBottomAPI.logger().log(Level.WARN, "CHUNK GEN BLEEDING INTO DIFFERENT CHUNK AT " + this.gridX + ", " + this.gridY + "! THIS SHOULD NOT HAPPEN!", new IllegalStateException());
         }
 
         isGeneratingChunk = true;
@@ -203,7 +203,7 @@ public class Chunk implements IChunk {
                 double dist = handler.getMaxPlayerDistance(entity);
                 if (player == null || Util.distanceSq(player.getX(), player.getY(), x, y) >= dist * dist) {
                     handler.despawn(entity);
-                    RockBottomAPI.logger().finest("Despawned " + entity + " at " + x + ", " + y);
+                    RockBottomAPI.logger().info("Despawned " + entity + " at " + x + ", " + y);
                     return true;
                 }
             }
@@ -297,7 +297,7 @@ public class Chunk implements IChunk {
         if (grid != null) {
             TileState state = grid[x][y];
             if (state == null) {
-                RockBottomAPI.logger().log(Level.WARNING, "In chunk at " + this.gridX + ' ' + this.gridY + ", position " + x + ' ' + y + " is null!?", new NullPointerException());
+                RockBottomAPI.logger().log(Level.WARN, "In chunk at " + this.gridX + ' ' + this.gridY + ", position " + x + ' ' + y + " is null!?", new NullPointerException());
             }
             return state;
         } else {
@@ -408,7 +408,7 @@ public class Chunk implements IChunk {
     @Override
     public void addEntity(Entity entity) {
         if (this.entityLookup.containsKey(entity.getUniqueId())) {
-            RockBottomAPI.logger().log(Level.WARNING, "Tried adding entity " + entity + " with id " + entity.getUniqueId() + " to chunk at " + this.gridX + ", " + this.gridY + " that already contained it!", new UnsupportedOperationException());
+            RockBottomAPI.logger().log(Level.WARN, "Tried adding entity " + entity + " with id " + entity.getUniqueId() + " to chunk at " + this.gridX + ", " + this.gridY + " that already contained it!", new UnsupportedOperationException());
         } else {
             this.entities.add(entity);
             this.entityLookup.put(entity.getUniqueId(), entity);
@@ -796,7 +796,7 @@ public class Chunk implements IChunk {
             if (this.doesEntityForcePersistence()) {
                 this.internalLoadingTimer = Constants.CHUNK_LOAD_TIME;
 
-                RockBottomAPI.logger().fine("Persisting chunk at " + this.gridX + ", " + this.gridY);
+                RockBottomAPI.logger().info("Persisting chunk at " + this.gridX + ", " + this.gridY);
             } else {
                 return true;
             }
@@ -933,7 +933,7 @@ public class Chunk implements IChunk {
                                 tile = event.newState;
 
                                 if (tile == null) {
-                                    RockBottomAPI.logger().warning("Could not load tile at " + x + ' ' + y + " because tile state with name " + name + " is missing - subscribe to the MissingTileEvent to fix this issue!");
+                                    RockBottomAPI.logger().warn("Could not load tile at " + x + ' ' + y + " because tile state with name " + name + " is missing - subscribe to the MissingTileEvent to fix this issue!");
                                 }
                             }
 
@@ -944,7 +944,7 @@ public class Chunk implements IChunk {
                         }
                     }
                 } else {
-                    RockBottomAPI.logger().warning("Could not load tile layer with name " + res + " as it is missing!");
+                    RockBottomAPI.logger().warn("Could not load tile layer with name " + res + " as it is missing!");
                 }
             }
 
@@ -957,7 +957,7 @@ public class Chunk implements IChunk {
                     if (biome != null) {
                         this.setBiomeInner(x, y, biome);
                     } else {
-                        RockBottomAPI.logger().warning("Could not load biome at " + x + ' ' + y + " because biome with name " + this.world.getBiomeRegInfo().get(id) + " is missing!");
+                        RockBottomAPI.logger().warn("Could not load biome at " + x + ' ' + y + " because biome with name " + this.world.getBiomeRegInfo().get(id) + " is missing!");
                     }
                     biomeCounter++;
                 }
@@ -988,7 +988,7 @@ public class Chunk implements IChunk {
                     entity.setUniqueId(id);
                     this.addEntity(entity);
                 } else {
-                    RockBottomAPI.logger().warning("Couldn't load entity with name " + name + " and data " + entitySet);
+                    RockBottomAPI.logger().warn("Couldn't load entity with name " + name + " and data " + entitySet);
                 }
             }
 
@@ -1006,10 +1006,10 @@ public class Chunk implements IChunk {
                     if (tile != null) {
                         tile.load(tileSet, false);
                     } else {
-                        RockBottomAPI.logger().warning("Couldn't load data of tile entity at " + x + ", " + y + " because it is missing!");
+                        RockBottomAPI.logger().warn("Couldn't load data of tile entity at " + x + ", " + y + " because it is missing!");
                     }
                 } else {
-                    RockBottomAPI.logger().warning("Could not tile entity at " + x + ' ' + y + " because layer with name " + res + " is missing!");
+                    RockBottomAPI.logger().warn("Could not tile entity at " + x + ' ' + y + " because layer with name " + res + " is missing!");
                 }
             }
 
@@ -1030,10 +1030,10 @@ public class Chunk implements IChunk {
                     if (layer != null) {
                         this.scheduleUpdate(x, y, layer, meta, time);
                     } else {
-                        RockBottomAPI.logger().warning("Could not load scheduled update at " + x + ' ' + y + " with time " + time + " because layer with name " + res + " is missing!");
+                        RockBottomAPI.logger().warn("Could not load scheduled update at " + x + ' ' + y + " with time " + time + " because layer with name " + res + " is missing!");
                     }
                 } else {
-                    RockBottomAPI.logger().warning("Could not load scheduled update at " + x + ' ' + y + " with time " + time + " because tile with id " + id + " is missing!");
+                    RockBottomAPI.logger().warn("Could not load scheduled update at " + x + ' ' + y + " with time " + time + " because tile with id " + id + " is missing!");
                 }
             }
 
@@ -1176,7 +1176,7 @@ public class Chunk implements IChunk {
             this.layersByRenderPrio.add(layer);
             this.layersByRenderPrio.sort(Comparator.comparingInt(TileLayer::getRenderPriority).reversed());
 
-            RockBottomAPI.logger().fine("Adding new tile layer " + layer + " to chunk at " + this.gridX + ", " + this.gridY);
+            RockBottomAPI.logger().info("Adding new tile layer " + layer + " to chunk at " + this.gridX + ", " + this.gridY);
         }
 
         return grid;

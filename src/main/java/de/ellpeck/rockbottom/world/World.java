@@ -208,7 +208,7 @@ public class World extends AbstractWorld {
         if (this.getPlayer(player.getUniqueId()) == null) {
             this.players.add(player);
         } else {
-            RockBottomAPI.logger().warning("Tried adding player " + player.getName() + " with id " + player.getUniqueId() + " to world that already contained it!");
+            RockBottomAPI.logger().warn("Tried adding player " + player.getName() + " with id " + player.getUniqueId() + " to world that already contained it!");
         }
 
         if (this.isServer()) {
@@ -236,7 +236,7 @@ public class World extends AbstractWorld {
 
             world.addEntity(entity);
 
-            RockBottomAPI.logger().fine("Entity " + entity + " travelling from world " + this.getName() + " to world " + world.getName() + " (" + x + ", " + y + ')');
+            RockBottomAPI.logger().info("Entity " + entity + " travelling from world " + this.getName() + " to world " + world.getName() + " (" + x + ", " + y + ')');
         }
     }
 

@@ -39,14 +39,14 @@ import de.ellpeck.rockbottom.log.Logging;
 import de.ellpeck.rockbottom.net.packet.toserver.PacketConstruction;
 import de.ellpeck.rockbottom.render.WorldRenderer;
 import de.ellpeck.rockbottom.render.entity.PlayerEntityRenderer;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -75,7 +75,7 @@ public class ApiHandler implements IApiHandler {
                 stream.close();
             }
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.SEVERE, "Exception saving a data set to disk!", e);
+            RockBottomAPI.logger().log(Level.ERROR, "Exception saving a data set to disk!", e);
         }
     }
 
@@ -100,7 +100,7 @@ public class ApiHandler implements IApiHandler {
                 }
             }
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.SEVERE, "Exception loading a data set from disk!", e);
+            RockBottomAPI.logger().log(Level.ERROR, "Exception loading a data set from disk!", e);
         }
     }
 
@@ -417,7 +417,7 @@ public class ApiHandler implements IApiHandler {
         }
 
         if (chosen == null) {
-            RockBottomAPI.logger().warning("Couldn't find a biome to generate for " + x + ", " + y + " with level " + level.getName());
+            RockBottomAPI.logger().warn("Couldn't find a biome to generate for " + x + ", " + y + " with level " + level.getName());
             chosen = GameContent.BIOME_SKY;
         }
 

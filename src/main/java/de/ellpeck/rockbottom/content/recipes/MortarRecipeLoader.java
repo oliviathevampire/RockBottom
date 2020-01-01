@@ -45,7 +45,7 @@ public class MortarRecipeLoader implements IContentLoader<MortarRecipe> {
                     processCriteria(recipe, object.getAsJsonArray("criteria"));
                 }
 
-                RockBottomAPI.logger().config("Loaded mortar recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with time " + time + ", input " + input + " and output " + output + " with content pack " + pack.getName());
+                RockBottomAPI.logger().info("Loaded mortar recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with time " + time + ", input " + input + " and output " + output + " with content pack " + pack.getName());
             }
         } else {
             RockBottomAPI.logger().info("Mortar recipe " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");

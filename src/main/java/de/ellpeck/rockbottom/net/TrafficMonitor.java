@@ -12,7 +12,7 @@ public class TrafficMonitor extends ChannelTrafficShapingHandler {
 
     @Override
     protected void doAccounting(TrafficCounter counter) {
-        RockBottomAPI.logger().config("Traffic information for the last 30 seconds: "
+        RockBottomAPI.logger().info("Traffic information for the last 30 seconds: "
                 + (counter.lastWrittenBytes() / 1000) + " (" + (counter.lastWriteThroughput() / 1000) + " per second) kB written, "
                 + (counter.lastReadBytes() / 1000) + " (" + (counter.lastReadThroughput() / 1000) + " per second) kB read");
     }

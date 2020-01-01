@@ -11,6 +11,7 @@ import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.content.ContentManager;
 import de.ellpeck.rockbottom.init.AbstractGame;
 import de.ellpeck.rockbottom.log.Logging;
+import org.apache.logging.log4j.Level;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 public final class CrashManager {
 
@@ -41,7 +41,7 @@ public final class CrashManager {
             dir.mkdirs();
         }
 
-        log(Level.SEVERE, "The game encountered a fatal exception, creating crash report...", null);
+        log(Level.ERROR, "The game encountered a fatal exception, creating crash report...", null);
 
         String date = new SimpleDateFormat("dd.MM.yy_HH.mm.ss").format(new Date());
         File file = new File(dir, date + ".txt");
@@ -59,10 +59,10 @@ public final class CrashManager {
         try {
             StringWriter writer = new StringWriter();
             writeInfo(new PrintWriter(writer), divider, name, date, "Find a file with this crash report at " + file, comment, t);
-            log(Level.SEVERE, "Crash Report:\n" + writer, null);
+            log(Level.ERROR, "Crash Report:\n" + writer, null);
         } catch (Exception e) {
-            log(Level.WARNING, "Couldn't generate full crash report", e);
-            log(Level.SEVERE, "The game crashed for the following reason", t);
+            log(Level.WARN, "Couldn't generate full crash report", e);
+            log(Level.ERROR, "The game crashed for the following reason", t);
         }
 
         try {
@@ -70,7 +70,7 @@ public final class CrashManager {
             writeInfo(writer, divider, name, date, null, comment, t);
             writer.flush();
         } catch (Exception e) {
-            log(Level.WARNING, "Couldn't save crash report to " + file, e);
+            log(Level.WARN, "Couldn't save crash report to " + file, e);
         }
     }
 

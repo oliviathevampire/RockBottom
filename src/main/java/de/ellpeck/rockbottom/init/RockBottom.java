@@ -53,7 +53,7 @@ import de.ellpeck.rockbottom.util.CrashManager;
 import de.ellpeck.rockbottom.world.AbstractWorld;
 import de.ellpeck.rockbottom.world.entity.player.EntityPlayer;
 import de.ellpeck.rockbottom.world.entity.player.InteractionManager;
-import joptsimple.internal.Strings;
+import org.apache.logging.log4j.Level;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.GL;
@@ -71,7 +71,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
 
 public class RockBottom extends AbstractGame {
 
@@ -79,7 +78,7 @@ public class RockBottom extends AbstractGame {
     private final GLFWErrorCallback errorCallback = new GLFWErrorCallback() {
         @Override
         public void invoke(int error, long description) {
-            Logging.glfwLogger.log(Level.WARNING, GLFWErrorCallback.getDescription(description), new RuntimeException());
+            Logging.glfwLogger.log(Level.ERROR, GLFWErrorCallback.getDescription(description), new RuntimeException());
         }
     };
     public AssetManager assetManager;
@@ -112,7 +111,7 @@ public class RockBottom extends AbstractGame {
             Util.GSON.toJson(design, writer);
             writer.close();
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.WARNING, "Couldn't save player design to file", e);
+            RockBottomAPI.logger().log(Level.WARN, "Couldn't save player design to file", e);
         }
     }
 
@@ -163,7 +162,7 @@ public class RockBottom extends AbstractGame {
             GLFW.glfwSetWindowIcon(this.windowId, imageBuffer);
             imageBuffer.free();
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.WARNING, "Couldn't set game icon", e);
+            RockBottomAPI.logger().log(Level.WARN, "Couldn't set game icon", e);
         }
 
         this.getWindowSize();
@@ -195,7 +194,7 @@ public class RockBottom extends AbstractGame {
                 this.renderer.simpleFont.drawCenteredString(this.width / 2, 30 + (this.renderer.simpleFont.getHeight(scale) * i), list.get(i), scale, false);
             }
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.WARNING, "Couldn't render loading screen", e);
+            RockBottomAPI.logger().log(Level.WARN, "Couldn't render loading screen", e);
         }
         this.renderer.end();
 
@@ -240,7 +239,7 @@ public class RockBottom extends AbstractGame {
                 reader.close();
                 return;
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.WARNING, "Couldn't read game uuid", e);
+                RockBottomAPI.logger().log(Level.WARN, "Couldn't read game uuid", e);
             }
         }
 
@@ -252,7 +251,7 @@ public class RockBottom extends AbstractGame {
             writer.write(this.uniqueId.toString());
             writer.close();
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.WARNING, "Couldn't write game uuid", e);
+            RockBottomAPI.logger().log(Level.WARN, "Couldn't write game uuid", e);
         }
     }
 
@@ -344,7 +343,7 @@ public class RockBottom extends AbstractGame {
 
                 this.onResize();
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.WARNING, "Failed to set fullscreen", e);
+                RockBottomAPI.logger().log(Level.WARN, "Failed to set fullscreen", e);
             }
         }
     }
@@ -694,7 +693,7 @@ public class RockBottom extends AbstractGame {
             RockBottomAPI.logger().info("Saved screenshot to " + file);
             this.toaster.displayToast(new ToastBasic(new ChatComponentTranslation(ResourceName.intern("info.screenshot.title")), new ChatComponentTranslation(ResourceName.intern("info.screenshot"), file.getName()), 350));
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.WARNING, "Couldn't take screenshot", e);
+            RockBottomAPI.logger().log(Level.WARN, "Couldn't take screenshot", e);
         }
     }
 

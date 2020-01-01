@@ -51,7 +51,7 @@ public class SoundLoader implements IAssetLoader<ISound> {
                 }
 
                 manager.addAsset(this, resourceName, sound);
-                RockBottomAPI.logger().config("Loaded " + (stream ? "streaming " : "") + "sound " + resourceName + " for mod " + loadingMod.getDisplayName());
+                RockBottomAPI.logger().info("Loaded " + (stream ? "streaming " : "") + "sound " + resourceName + " for mod " + loadingMod.getDisplayName());
             }
         } else {
             RockBottomAPI.logger().info("Sound " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");

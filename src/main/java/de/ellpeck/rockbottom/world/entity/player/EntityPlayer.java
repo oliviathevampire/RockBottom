@@ -160,9 +160,9 @@ public class EntityPlayer extends AbstractEntityPlayer {
             }
 
             if (this.currentContainer == null) {
-                RockBottomAPI.logger().config("Closed Container for player " + this.getName() + " with unique id " + this.getUniqueId());
+                RockBottomAPI.logger().info("Closed Container for player " + this.getName() + " with unique id " + this.getUniqueId());
             } else {
-                RockBottomAPI.logger().config("Opened Container " + this.currentContainer.getName() + " for player " + this.getName() + " with unique id " + this.getUniqueId());
+                RockBottomAPI.logger().info("Opened Container " + this.currentContainer.getName() + " for player " + this.getName() + " with unique id " + this.getUniqueId());
             }
             return true;
         }
@@ -321,7 +321,7 @@ public class EntityPlayer extends AbstractEntityPlayer {
                                 if (entity != null) {
                                     this.world.addEntity(entity);
 
-                                    RockBottomAPI.logger().finest("Spawned " + entity + " at " + theX + ", " + theY);
+                                    RockBottomAPI.logger().info("Spawned " + entity + " at " + theX + ", " + theY);
                                 }
                             }
                         }
@@ -468,7 +468,7 @@ public class EntityPlayer extends AbstractEntityPlayer {
                 }
             }
 
-            RockBottomAPI.logger().config("Player " + this.getName() + " with id " + this.getUniqueId() + " leaving range of " + unload + " chunks and loading " + newLoad + " new ones");
+            RockBottomAPI.logger().info("Player " + this.getName() + " with id " + this.getUniqueId() + " leaving range of " + unload + " chunks and loading " + newLoad + " new ones");
 
             for (IChunk chunk : nowLoaded) {
                 List<AbstractEntityPlayer> inRange = chunk.getPlayersInRange();
@@ -701,7 +701,7 @@ public class EntityPlayer extends AbstractEntityPlayer {
 
             tries++;
             if (tries >= 50) {
-                RockBottomAPI.logger().warning("Couldn't spawn the player at a valid position, spawning them at " + x + ", " + y + " instead - Is there any space at spawn?");
+                RockBottomAPI.logger().info("Couldn't spawn the player at a valid position, spawning them at " + x + ", " + y + " instead - Is there any space at spawn?");
                 break;
             }
         }

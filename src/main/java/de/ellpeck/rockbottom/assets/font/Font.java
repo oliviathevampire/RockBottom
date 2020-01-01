@@ -66,7 +66,7 @@ public class Font implements IFont {
         }
 
         int height = rows.size();
-        RockBottomAPI.logger().config("Loaded font " + name + " with dimensions " + width + 'x' + height + " and the following character map consisting of " + characters.size() + " characters: " + characters);
+        RockBottomAPI.logger().info("Loaded font " + name + " with dimensions " + width + 'x' + height + " and the following character map consisting of " + characters.size() + " characters: " + characters);
 
         return new Font(name, texture, width, height, characters);
     }
@@ -247,7 +247,7 @@ public class Font implements IFont {
                 pos = new Pos2(-1, -1);
                 this.characters.put(character, pos);
 
-                RockBottomAPI.logger().warning("Character " + character + " is missing from font with name " + this.name);
+                RockBottomAPI.logger().warn("Character " + character + " is missing from font with name " + this.name);
             }
 
             if (pos.getX() >= 0 && pos.getY() >= 0) {

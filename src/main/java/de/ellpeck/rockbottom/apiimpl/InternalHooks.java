@@ -31,8 +31,8 @@ import de.ellpeck.rockbottom.api.internal.IInternalHooks;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.item.IItemRenderer;
-import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.LiquidTile;
+import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.IStateHandler;
 import de.ellpeck.rockbottom.api.tile.state.TileProp;
@@ -51,14 +51,13 @@ import de.ellpeck.rockbottom.net.packet.toserver.PacketShiftClick;
 import de.ellpeck.rockbottom.world.entity.EntityItem;
 import de.ellpeck.rockbottom.world.entity.player.InteractionManager;
 import de.ellpeck.rockbottom.world.entity.player.statistics.StatisticList;
-import de.ellpeck.rockbottom.world.tile.WaterTile;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.util.List;
 import java.util.*;
-import java.util.logging.Logger;
 
 public class InternalHooks implements IInternalHooks {
 

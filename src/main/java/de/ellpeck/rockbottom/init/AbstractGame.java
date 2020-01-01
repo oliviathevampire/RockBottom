@@ -34,6 +34,7 @@ import de.ellpeck.rockbottom.util.CrashManager;
 import de.ellpeck.rockbottom.util.thread.ThreadHandler;
 import de.ellpeck.rockbottom.world.World;
 import de.ellpeck.rockbottom.world.entity.player.statistics.StatisticList;
+import org.apache.logging.log4j.Level;
 
 import java.io.File;
 import java.io.InputStream;
@@ -46,7 +47,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.logging.Level;
 
 public abstract class AbstractGame implements IGameInstance {
 
@@ -130,7 +130,7 @@ public abstract class AbstractGame implements IGameInstance {
                 RockBottomAPI.logger().info("Game shutting down");
                 game.shutdown();
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.SEVERE, "There was an error while shutting down the game and disposing of resources", e);
+                RockBottomAPI.logger().log(Level.ERROR, "There was an error while shutting down the game and disposing of resources", e);
             }
         }
     }
@@ -408,13 +408,13 @@ public abstract class AbstractGame implements IGameInstance {
                 try {
                     Runtime.getRuntime().exec(cmd.toString());
                 } catch (Exception e) {
-                    Logging.mainLogger.log(Level.WARNING, "There was an error while trying to restart the game", e);
+                    Logging.mainLogger.log(Level.WARN, "There was an error while trying to restart the game", e);
                 }
             }, ThreadHandler.SHUTDOWN_HOOK));
 
             this.exit();
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.WARNING, "There was an error while trying to setup a game restart", e);
+            RockBottomAPI.logger().log(Level.WARN, "There was an error while trying to setup a game restart", e);
         }
     }
 

@@ -9,8 +9,7 @@ import de.ellpeck.rockbottom.gui.menu.GuiMainMenu;
 import de.ellpeck.rockbottom.log.Logging;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-
-import java.util.logging.Level;
+import org.apache.logging.log4j.Level;
 
 public class ClientNetworkHandler extends SimpleChannelInboundHandler<IPacket> {
 
@@ -20,7 +19,7 @@ public class ClientNetworkHandler extends SimpleChannelInboundHandler<IPacket> {
             try {
                 packet.handle(game, context);
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.SEVERE, "There was an error handling a packet on the client, closing the connection", e);
+                RockBottomAPI.logger().log(Level.ERROR, "There was an error handling a packet on the client, closing the connection", e);
                 this.notifyAndClose(context, e);
             }
         }, ctx);
@@ -28,7 +27,7 @@ public class ClientNetworkHandler extends SimpleChannelInboundHandler<IPacket> {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        Logging.nettyLogger.log(Level.SEVERE, "The client network handler caught an exception", cause);
+        Logging.nettyLogger.log(Level.ERROR, "The client network handler caught an exception", cause);
         this.notifyAndClose(ctx, cause);
     }
 

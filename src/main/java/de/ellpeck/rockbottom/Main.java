@@ -5,6 +5,7 @@ import de.ellpeck.rockbottom.util.CrashManager;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
+import org.apache.logging.log4j.Level;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -14,7 +15,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
 
 public final class Main {
 
@@ -40,7 +40,6 @@ public final class Main {
         try {
             OptionParser parser = new OptionParser();
             parser.allowsUnrecognizedOptions();
-            OptionSpec<String> optionLogLevel = parser.accepts("logLevel").withRequiredArg().ofType(String.class).defaultsTo(Level.INFO.getName());
             File defaultGameDir = new File(".", "rockbottom");
             OptionSpec<File> optionGameDir = parser.accepts("gameDir").withRequiredArg().ofType(File.class).defaultsTo(defaultGameDir);
             OptionSpec<File> optionUnpackedDir = parser.accepts("unpackedModsDir").withRequiredArg().ofType(File.class);
@@ -58,7 +57,7 @@ public final class Main {
             OptionSet options = parser.parse(args);
 
             gameDir = options.valueOf(optionGameDir);
-            Logging.init(options.valueOf(optionLogLevel));
+            Logging.init();
 
             Logging.mainLogger.info("Using Java version " + System.getProperty("java.version"));
 
@@ -130,7 +129,7 @@ public final class Main {
         try {
             return file.toURI().toURL();
         } catch (MalformedURLException e) {
-            Logging.mainLogger.log(Level.WARNING, "Couldn't convert " + file + " to URL", e);
+            Logging.mainLogger.log(Level.WARN, "Couldn't convert " + file + " to URL", e);
             return null;
         }
     }

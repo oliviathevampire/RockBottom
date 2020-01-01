@@ -37,7 +37,7 @@ public class TextureLoader implements IAssetLoader<ITexture> {
             } else {
                 this.makeTexture(manager, resourceName.toString(), element, path, (stitchX, stitchY, stitchedTexture) -> {
                     manager.addAsset(this, resourceName, stitchedTexture);
-                    RockBottomAPI.logger().config("Loaded texture " + resourceName + " for mod " + loadingMod.getDisplayName());
+                    RockBottomAPI.logger().info("Loaded texture " + resourceName + " for mod " + loadingMod.getDisplayName());
                 });
             }
         } else {
@@ -153,7 +153,7 @@ public class TextureLoader implements IAssetLoader<ITexture> {
                             ITexture texture = stitchedTexture.getSubTexture(array.get(0).getAsInt(), array.get(1).getAsInt(), array.get(2).getAsInt(), array.get(3).getAsInt());
 
                             if (manager.addAsset(this, res, texture)) {
-                                RockBottomAPI.logger().config("Loaded subtexture " + res + " for mod " + loadingMod.getDisplayName());
+                                RockBottomAPI.logger().info("Loaded subtexture " + res + " for mod " + loadingMod.getDisplayName());
                             } else {
                                 RockBottomAPI.logger().info("Subtexture " + resourceName + " already exists, not adding subtexture for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName());
                             }

@@ -9,12 +9,12 @@ import de.ellpeck.rockbottom.api.gui.Gui;
 import de.ellpeck.rockbottom.api.gui.component.ComponentButton;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.content.ContentManager;
+import org.apache.logging.log4j.Level;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 public class GuiCredits extends Gui {
 
@@ -39,7 +39,7 @@ public class GuiCredits extends Gui {
 
             reader.close();
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.WARNING, "Couldn't read credits file from " + path, e);
+            RockBottomAPI.logger().log(Level.WARN, "Couldn't read credits file from " + path, e);
 
             this.credits.clear();
             this.credits.add("Credits couldn't be loaded :(");

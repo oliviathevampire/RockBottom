@@ -10,8 +10,7 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.gui.GuiInformation;
 import de.ellpeck.rockbottom.net.packet.toserver.PacketJoin;
 import de.ellpeck.rockbottom.util.thread.ThreadHandler;
-
-import java.util.logging.Level;
+import org.apache.logging.log4j.Level;
 
 public class GuiJoinServer extends Gui {
 
@@ -43,7 +42,7 @@ public class GuiJoinServer extends Gui {
                     RockBottomAPI.logger().info("Attempting to join server");
                     RockBottomAPI.getNet().sendToServer(new PacketJoin(game.getUniqueId(), game.getPlayerDesign(), RockBottomAPI.getModLoader().getActiveMods()));
                 } catch (Exception e) {
-                    RockBottomAPI.logger().log(Level.WARNING, "Couldn't connect to server", e);
+                    RockBottomAPI.logger().log(Level.WARN, "Couldn't connect to server", e);
                     game.getGuiManager().openGui(new GuiInformation(this, 0.5F, true, game.getAssetManager().localize(ResourceName.intern("info.reject.connection"), e.getMessage())));
                 }
             }, ThreadHandler.SERVER_JOIN);

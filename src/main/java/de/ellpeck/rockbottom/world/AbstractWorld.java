@@ -34,11 +34,11 @@ import de.ellpeck.rockbottom.net.packet.toclient.PacketParticles;
 import de.ellpeck.rockbottom.net.packet.toclient.PacketSound;
 import de.ellpeck.rockbottom.net.packet.toclient.PacketTime;
 import de.ellpeck.rockbottom.util.thread.ThreadHandler;
+import org.apache.logging.log4j.Level;
 
 import java.io.File;
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.logging.Level;
 
 public abstract class AbstractWorld implements IWorld {
 
@@ -116,7 +116,7 @@ public abstract class AbstractWorld implements IWorld {
                     generators.put(entry.getKey(), generator);
                 }
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.WARNING, "Couldn't initialize world generator with class " + entry.getValue() + " for world " + this.getName(), e);
+                RockBottomAPI.logger().log(Level.WARN, "Couldn't initialize world generator with class " + entry.getValue() + " for world " + this.getName(), e);
             }
         }
 
@@ -158,9 +158,9 @@ public abstract class AbstractWorld implements IWorld {
             this.loadChunk(pos.getX(), pos.getY(), constantPersist, !constantPersist);
 
             if (constantPersist) {
-                RockBottomAPI.logger().config("Creating constantly persistent chunk at " + pos.getX() + ", " + pos.getY() + " to world " + this.getName());
+                RockBottomAPI.logger().info("Creating constantly persistent chunk at " + pos.getX() + ", " + pos.getY() + " to world " + this.getName());
             } else {
-                RockBottomAPI.logger().config("Loading persisting chunk at " + pos.getX() + ", " + pos.getY() + " to world " + this.getName());
+                RockBottomAPI.logger().info("Loading persisting chunk at " + pos.getX() + ", " + pos.getY() + " to world " + this.getName());
             }
         }
     }

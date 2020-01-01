@@ -23,7 +23,7 @@ public class NetHandler implements INetHandler {
     @Override
     public void init(String ip, int port, boolean isServer) throws Exception {
         if (this.isActive()) {
-            RockBottomAPI.logger().severe("Cannot initialize " + (isServer ? "server" : "client") + " because one is already running: Client: " + this.client + ", Server: " + this.server);
+            RockBottomAPI.logger().error("Cannot initialize " + (isServer ? "server" : "client") + " because one is already running: Client: " + this.client + ", Server: " + this.server);
         } else {
             if (isServer) {
                 this.server = new Server(ip, port);

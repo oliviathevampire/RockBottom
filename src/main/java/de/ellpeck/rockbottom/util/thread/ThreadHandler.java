@@ -10,10 +10,10 @@ import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.assets.sound.SoundHandler;
 import de.ellpeck.rockbottom.init.AbstractGame;
+import org.apache.logging.log4j.Level;
 
 import java.util.Scanner;
 import java.util.UUID;
-import java.util.logging.Level;
 
 public final class ThreadHandler {
 
@@ -83,7 +83,7 @@ public final class ThreadHandler {
                             game.enqueueAction((g, object) -> g.getChatLog().sendCommandSenderMessage(input, consoleCommandSender), null);
                         }
                     } catch (Exception e) {
-                        RockBottomAPI.logger().log(Level.WARNING, "There was an exception in the console thread, but it will attempt to keep running", e);
+                        RockBottomAPI.logger().log(Level.WARN, "There was an exception in the console thread, but it will attempt to keep running", e);
                     }
                     Util.sleepSafe(1);
                 }

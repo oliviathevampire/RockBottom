@@ -8,9 +8,9 @@ import de.ellpeck.rockbottom.api.entity.player.statistics.IStatistics;
 import de.ellpeck.rockbottom.api.entity.player.statistics.Statistic;
 import de.ellpeck.rockbottom.api.entity.player.statistics.StatisticInitializer;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
+import org.apache.logging.log4j.Level;
 
 import java.util.*;
-import java.util.logging.Level;
 
 public class Statistics implements IStatistics {
 
@@ -65,7 +65,7 @@ public class Statistics implements IStatistics {
                 if (stat != null) {
                     stat.load(sub);
                 } else {
-                    RockBottomAPI.logger().log(Level.WARNING, "Statistic that was saved with name " + name + " doesn't exist anymore");
+                    RockBottomAPI.logger().log(Level.WARN, "Statistic that was saved with name " + name + " doesn't exist anymore");
                 }
             }
         }

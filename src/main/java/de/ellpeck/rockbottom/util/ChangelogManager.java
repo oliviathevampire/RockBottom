@@ -8,11 +8,11 @@ import de.ellpeck.rockbottom.api.Constants;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.util.thread.ThreadHandler;
+import org.apache.logging.log4j.Level;
 
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Map;
-import java.util.logging.Level;
 
 public final class ChangelogManager {
 
@@ -57,7 +57,7 @@ public final class ChangelogManager {
 
                 reader.close();
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.WARNING, "There was an error trying to grab and parse the changelog", e);
+                RockBottomAPI.logger().log(Level.WARN, "There was an error trying to grab and parse the changelog", e);
                 changelogGrabError = true;
             }
         }, ThreadHandler.CHANGELOG_GRABBER);
@@ -82,7 +82,7 @@ public final class ChangelogManager {
                 }
             }
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.WARNING, "Couldn't compare version string " + newVersion + " to old version string " + oldVersion, e);
+            RockBottomAPI.logger().log(Level.WARN, "Couldn't compare version string " + newVersion + " to old version string " + oldVersion, e);
         }
         return false;
     }

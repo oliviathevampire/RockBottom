@@ -4,11 +4,11 @@ import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.ISound;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.init.AbstractGame;
+import org.apache.logging.log4j.Level;
 import org.lwjgl.openal.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 public final class SoundHandler {
 
@@ -48,11 +48,11 @@ public final class SoundHandler {
                     SOURCES.add(source);
                     AL10.alSource3f(source, AL10.AL_VELOCITY, 0F, 0F, 0F);
                 } else {
-                    RockBottomAPI.logger().warning("Couldn't initialize source:\n" + AL10.alGetString(error));
+                    RockBottomAPI.logger().warn("Couldn't initialize source:\n" + AL10.alGetString(error));
                     break;
                 }
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.WARNING, "Failed to initialize sounds", e);
+                RockBottomAPI.logger().log(Level.WARN, "Failed to initialize sounds", e);
             }
         }
 
@@ -60,7 +60,7 @@ public final class SoundHandler {
 
         int error = AL10.alGetError();
         if (error != AL10.AL_NO_ERROR) {
-            RockBottomAPI.logger().log(Level.WARNING, "Couldn't initialize sounds:\n" + AL10.alGetString(error));
+            RockBottomAPI.logger().log(Level.WARN, "Couldn't initialize sounds:\n" + AL10.alGetString(error));
         } else {
             AL10.alListener3f(AL10.AL_POSITION, listenerX, listenerY, playerZ);
         }
@@ -194,13 +194,12 @@ public final class SoundHandler {
                     lastStreamTime = currTime;
 
                     if (!STREAM_SOUNDS.isEmpty()) {
-                        for (int i = 0; i < STREAM_SOUNDS.size(); i++) {
-                            StreamSound sound = STREAM_SOUNDS.get(i);
+                        for (StreamSound sound : STREAM_SOUNDS) {
                             if (sound.isPlaying()) {
                                 try {
                                     sound.update();
                                 } catch (Exception e) {
-                                    RockBottomAPI.logger().log(Level.WARNING, "There was an error streaming a sound", e);
+                                    RockBottomAPI.logger().log(Level.WARN, "There was an error streaming a sound", e);
                                 }
                             }
                         }
@@ -219,7 +218,7 @@ public final class SoundHandler {
                     }
                 }
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.WARNING, "There was an exception in the sound handling thread, but it will attempt to keep running", e);
+                RockBottomAPI.logger().log(Level.WARN, "There was an exception in the sound handling thread, but it will attempt to keep running", e);
             }
 
             Util.sleepSafe(1);

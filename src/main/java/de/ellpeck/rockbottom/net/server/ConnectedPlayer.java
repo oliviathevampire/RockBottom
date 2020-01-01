@@ -85,7 +85,7 @@ public class ConnectedPlayer extends EntityPlayer {
                 this.fallStartY = 0;
                 this.setPos(this.lastCalcX, this.lastCalcY);
 
-                RockBottomAPI.logger().warning("Player " + this.getName() + " with id " + this.getUniqueId() + " moved a distance of " + Math.sqrt(distanceSq) + " which is more than the max " + maxDist + ", moving them back");
+                RockBottomAPI.logger().warn("Player " + this.getName() + " with id " + this.getUniqueId() + " moved a distance of " + Math.sqrt(distanceSq) + " which is more than the max " + maxDist + ", moving them back");
             } else {
                 this.lastCalcX = x;
                 this.lastCalcY = y;
@@ -163,7 +163,7 @@ public class ConnectedPlayer extends EntityPlayer {
 
     private boolean sendChunk(IChunk chunk) {
         if (!chunk.isGenerating()) {
-            RockBottomAPI.logger().finer("Sending chunk at " + chunk.getGridX() + ", " + chunk.getGridY() + " to player " + this.getName() + " with id " + this.getUniqueId());
+            RockBottomAPI.logger().info("Sending chunk at " + chunk.getGridX() + ", " + chunk.getGridY() + " to player " + this.getName() + " with id " + this.getUniqueId());
 
             this.sendPacket(new PacketChunk(chunk));
 
@@ -185,7 +185,7 @@ public class ConnectedPlayer extends EntityPlayer {
 
     @Override
     public void onChunkUnloaded(IChunk chunk) {
-        RockBottomAPI.logger().finer("Sending chunk unloading packet for chunk at " + chunk.getGridX() + ", " + chunk.getGridY() + " to player " + this.getName() + " with id " + this.getUniqueId());
+        RockBottomAPI.logger().info("Sending chunk unloading packet for chunk at " + chunk.getGridX() + ", " + chunk.getGridY() + " to player " + this.getName() + " with id " + this.getUniqueId());
 
         this.sendPacket(new PacketChunkUnload(chunk.getGridX(), chunk.getGridY()));
     }

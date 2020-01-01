@@ -75,7 +75,7 @@ public class ResourceRegistry implements IResourceRegistry {
             }
         }
 
-        RockBottomAPI.logger().config("Registered resources " + Arrays.toString(resources) + " for resource name " + name);
+        RockBottomAPI.logger().info("Registered resources " + Arrays.toString(resources) + " for resource name " + name);
         return name;
     }
 

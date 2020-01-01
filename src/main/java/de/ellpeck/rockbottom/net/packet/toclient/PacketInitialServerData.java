@@ -77,7 +77,7 @@ public class PacketInitialServerData implements IPacket {
                 gui.fadeIn(20, null);
             });
         } else {
-            RockBottomAPI.logger().warning("Received initial server data while already being in a world!");
+            RockBottomAPI.logger().warn("Received initial server data while already being in a world!");
             context.channel().disconnect();
         }
     }

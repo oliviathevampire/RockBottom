@@ -8,8 +8,7 @@ import de.ellpeck.rockbottom.log.Logging;
 import de.ellpeck.rockbottom.net.packet.toclient.PacketReject;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-
-import java.util.logging.Level;
+import org.apache.logging.log4j.Level;
 
 public class ServerNetworkHandler extends SimpleChannelInboundHandler<IPacket> {
 
@@ -35,7 +34,7 @@ public class ServerNetworkHandler extends SimpleChannelInboundHandler<IPacket> {
             try {
                 packet.handle(game, context);
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.SEVERE, "There was an error handling a packet on the server, closing the connection to the client", e);
+                RockBottomAPI.logger().log(Level.ERROR, "There was an error handling a packet on the server, closing the connection to the client", e);
                 this.notifyAndClose(context, e);
             }
         }, ctx);
@@ -43,7 +42,7 @@ public class ServerNetworkHandler extends SimpleChannelInboundHandler<IPacket> {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        Logging.nettyLogger.log(Level.SEVERE, "The server network handler caught an exception, closing the connection to the client", cause);
+        Logging.nettyLogger.log(Level.ERROR, "The server network handler caught an exception, closing the connection to the client", cause);
         this.notifyAndClose(ctx, cause);
     }
 

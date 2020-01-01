@@ -13,12 +13,12 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.init.RockBottom;
 import de.ellpeck.rockbottom.render.design.PlayerDesign;
 import de.ellpeck.rockbottom.render.entity.PlayerEntityRenderer;
+import org.apache.logging.log4j.Level;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.util.function.Consumer;
-import java.util.logging.Level;
 
 public class GuiPlayerEditor extends Gui {
 
@@ -112,7 +112,7 @@ public class GuiPlayerEditor extends Gui {
                         game.setPlayerDesign(data);
                         game.getGuiManager().updateDimensions();
                     } catch (Exception e) {
-                        RockBottomAPI.logger().log(Level.WARNING, "Couldn't paste player design from clipboard", e);
+                        RockBottomAPI.logger().log(Level.WARN, "Couldn't paste player design from clipboard", e);
                     }
                 }
             }));

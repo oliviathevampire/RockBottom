@@ -13,11 +13,11 @@ import de.ellpeck.rockbottom.api.net.chat.component.ChatComponent;
 import de.ellpeck.rockbottom.api.net.chat.component.ChatComponentText;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
 
 public class CommandSpawnEntity extends Command {
 
@@ -66,7 +66,7 @@ public class CommandSpawnEntity extends Command {
 
                     return new ChatComponentText(FormattingCode.GREEN + "Spawned entity at " + x + ", " + y + '!');
                 } catch (Exception e) {
-                    RockBottomAPI.logger().log(Level.WARNING, "Trying to spawn entity " + args[0] + " using default constructor failed!", e);
+                    RockBottomAPI.logger().log(Level.WARN, "Trying to spawn entity " + args[0] + " using default constructor failed!", e);
                     return new ChatComponentText(FormattingCode.RED + "The entity '" + args[0] + "' cannot be spawned!");
                 }
             } else {

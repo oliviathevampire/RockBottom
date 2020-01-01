@@ -17,9 +17,9 @@ import de.ellpeck.rockbottom.net.packet.backandforth.PacketOpenUnboundContainer;
 import de.ellpeck.rockbottom.net.packet.backandforth.PacketStats;
 import de.ellpeck.rockbottom.net.packet.toclient.*;
 import de.ellpeck.rockbottom.net.packet.toserver.*;
+import org.apache.logging.log4j.Level;
 
 import java.io.*;
-import java.util.logging.Level;
 
 public class DataManager implements IDataManager {
 
@@ -213,14 +213,14 @@ public class DataManager implements IDataManager {
 
                 loaded = true;
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.WARNING, "Couldn't load " + settings.getName(), e);
+                RockBottomAPI.logger().log(Level.WARN, "Couldn't load " + settings.getName(), e);
             }
         }
 
         try {
             settings.load(object == null ? new JsonObject() : object);
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.WARNING, "Couldn't parse " + settings.getName(), e);
+            RockBottomAPI.logger().log(Level.WARN, "Couldn't parse " + settings.getName(), e);
         }
 
         if (!loaded) {
@@ -238,7 +238,7 @@ public class DataManager implements IDataManager {
         try {
             settings.save(object);
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.WARNING, "Couldn't jsonify " + settings.getName(), e);
+            RockBottomAPI.logger().log(Level.WARN, "Couldn't jsonify " + settings.getName(), e);
         }
 
         try {
@@ -255,7 +255,7 @@ public class DataManager implements IDataManager {
             Util.GSON.toJson(object, writer);
             writer.close();
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.WARNING, "Couldn't save " + settings.getName(), e);
+            RockBottomAPI.logger().log(Level.WARN, "Couldn't save " + settings.getName(), e);
         }
     }
 }

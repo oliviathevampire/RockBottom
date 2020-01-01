@@ -47,7 +47,7 @@ public class SmithingRecipeLoader implements IContentLoader<SmithingRecipe> {
                     processCriteria(recipe, object.get("criteria").getAsJsonArray());
                 }
 
-                RockBottomAPI.logger().config("Loaded smithing recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + ", recipeInputs " + inputList + " outputs " + outputList + " skill " + skill + " with content pack " + pack.getName());
+                RockBottomAPI.logger().info("Loaded smithing recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + ", recipeInputs " + inputList + " outputs " + outputList + " skill " + skill + " with content pack " + pack.getName());
             }
         } else {
             RockBottomAPI.logger().info("Smithing recipe " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");

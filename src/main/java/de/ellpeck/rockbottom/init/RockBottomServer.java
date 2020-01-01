@@ -18,10 +18,10 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.DynamicRegistryInfo;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.WorldInfo;
+import org.apache.logging.log4j.Level;
 
 import java.io.File;
 import java.util.UUID;
-import java.util.logging.Level;
 
 public class RockBottomServer extends AbstractGame {
 
@@ -53,7 +53,7 @@ public class RockBottomServer extends AbstractGame {
         try {
             RockBottomAPI.getNet().init(null, Main.port, true);
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.SEVERE, "Couldn't start server", e);
+            RockBottomAPI.logger().log(Level.ERROR, "Couldn't start server", e);
             this.exit();
         }
     }

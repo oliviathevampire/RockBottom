@@ -76,7 +76,7 @@ public class PacketCutscene implements IPacket {
                     return command;
                 }
             }
-            RockBottomAPI.logger().warning("Tried to deserialize invalid cutscene subcommand id: " + id);
+            RockBottomAPI.logger().warn("Tried to deserialize invalid cutscene subcommand id: " + id);
             return null;
         }
     }

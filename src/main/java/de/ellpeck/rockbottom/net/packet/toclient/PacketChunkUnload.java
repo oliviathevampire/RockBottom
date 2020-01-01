@@ -37,7 +37,7 @@ public class PacketChunkUnload implements IPacket {
     public void handle(IGameInstance game, ChannelHandlerContext context) {
         IWorld world = game.getWorld();
         if (world != null) {
-            RockBottomAPI.logger().config("Unloading chunk at " + this.gridX + ", " + this.gridY);
+            RockBottomAPI.logger().info("Unloading chunk at " + this.gridX + ", " + this.gridY);
 
             if (world.isChunkLoaded(this.gridX, this.gridY)) {
                 IChunk chunk = world.getChunkFromGridCoords(this.gridX, this.gridY);

@@ -45,7 +45,7 @@ public class PacketChangeWorld implements IPacket {
         IWorld world = game.getWorld();
         if (world != null) {
             game.changeWorld(this.subName, this.worldData);
-            RockBottomAPI.logger().fine("Travelling to different world");
+            RockBottomAPI.logger().info("Travelling to different world");
         }
     }
 }

@@ -7,7 +7,6 @@ import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.smelting.CombinerRecipe;
-import de.ellpeck.rockbottom.api.construction.smelting.SmeltingRecipe;
 import de.ellpeck.rockbottom.api.content.IContentLoader;
 import de.ellpeck.rockbottom.api.content.pack.ContentPack;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -42,7 +41,7 @@ public class CombinerRecipeLoader implements IContentLoader<CombinerRecipe> {
 
                 new CombinerRecipe(resourceName, input1, input2, output, time).register();
 
-                RockBottomAPI.logger().config("Loaded combiner recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with time " + time + ", input 1 " + input1 + ", input 2 " + input2 + " and output " + output + " with content pack " + pack.getName());
+                RockBottomAPI.logger().info("Loaded combiner recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with time " + time + ", input 1 " + input1 + ", input 2 " + input2 + " and output " + output + " with content pack " + pack.getName());
             }
         } else {
             RockBottomAPI.logger().info("Combiner recipe " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");

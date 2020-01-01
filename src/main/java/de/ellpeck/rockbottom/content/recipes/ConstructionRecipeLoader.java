@@ -58,7 +58,7 @@ public class ConstructionRecipeLoader implements IContentLoader<ConstructionReci
                         if (item != null && usage > 0) {
                             tools.add(new ConstructionTool(item, usage));
                         } else {
-                            RockBottomAPI.logger().warning("Invalid tool listed for recipe " + resourceName);
+                            RockBottomAPI.logger().warn("Invalid tool listed for recipe " + resourceName);
                         }
                     }
                 }
@@ -76,7 +76,7 @@ public class ConstructionRecipeLoader implements IContentLoader<ConstructionReci
                     processCriteria(recipe, object.getAsJsonArray("criteria"));
                 }
 
-                RockBottomAPI.logger().config("Loaded recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with type " + type + ", inputs " + inputList + " outputs " + outputList + " and skill " + skill + " with content pack " + pack.getName());
+                RockBottomAPI.logger().info("Loaded recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with type " + type + ", inputs " + inputList + " outputs " + outputList + " and skill " + skill + " with content pack " + pack.getName());
             }
         } else {
             RockBottomAPI.logger().info("Recipe " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");

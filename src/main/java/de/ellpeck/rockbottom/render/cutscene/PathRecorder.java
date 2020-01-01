@@ -64,7 +64,7 @@ public class PathRecorder extends CutsceneCameraObject {
 
     public void startRecording() {
         if (recording) {
-            RockBottomAPI.logger().warning("Tried to start a path recording that had already begun!");
+            RockBottomAPI.logger().warn("Tried to start a path recording that had already begun!");
             return;
         }
         this.recording = true;
@@ -72,7 +72,7 @@ public class PathRecorder extends CutsceneCameraObject {
 
     public RecordedPath saveRecording() {
         if (!recording) {
-            RockBottomAPI.logger().warning("Tried to stop a path recording that wasn't active!");
+            RockBottomAPI.logger().warn("Tried to stop a path recording that wasn't active!");
             return null;
         }
         this.recording = false;

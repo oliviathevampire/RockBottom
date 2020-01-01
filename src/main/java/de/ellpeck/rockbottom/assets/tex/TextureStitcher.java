@@ -7,6 +7,7 @@ import de.ellpeck.rockbottom.api.assets.texture.ImageBuffer;
 import de.ellpeck.rockbottom.api.assets.texture.stitcher.IStitchCallback;
 import de.ellpeck.rockbottom.api.assets.texture.stitcher.ITextureStitcher;
 import de.ellpeck.rockbottom.api.util.Util;
+import org.apache.logging.log4j.Level;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -16,7 +17,6 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 public class TextureStitcher implements ITextureStitcher {
 
@@ -59,13 +59,13 @@ public class TextureStitcher implements ITextureStitcher {
                 }
 
                 stitchPositions.add(new StitchPosition(tex, instruction, x + 1, y + 1));
-                RockBottomAPI.logger().finer("Found stitch position for " + instruction.refName + " at " + (x + 1) + ", " + (y + 1) + " with dimensions " + tex.getTextureWidth() + 'x' + tex.getTextureHeight());
+                RockBottomAPI.logger().info("Found stitch position for " + instruction.refName + " at " + (x + 1) + ", " + (y + 1) + " with dimensions " + tex.getTextureWidth() + 'x' + tex.getTextureHeight());
 
                 highestWidth = Math.max(highestWidth, tex.getTextureWidth());
                 endX = Math.max(endX, x + tex.getTextureWidth());
                 endY = Math.max(endY, y + tex.getTextureHeight());
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.WARNING, "Couldn't stitch texture " + instruction.refName, e);
+                RockBottomAPI.logger().log(Level.WARN, "Couldn't stitch texture " + instruction.refName, e);
             }
         }
 
@@ -87,9 +87,9 @@ public class TextureStitcher implements ITextureStitcher {
                 }
 
                 position.texture.dispose();
-                RockBottomAPI.logger().finer("Successfully stitched " + position.instruction.refName + " to " + position.x + ", " + position.y);
+                RockBottomAPI.logger().info("Successfully stitched " + position.instruction.refName + " to " + position.x + ", " + position.y);
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.WARNING, "Failed to stitch texture " + position.instruction.refName, e);
+                RockBottomAPI.logger().log(Level.WARN, "Failed to stitch texture " + position.instruction.refName, e);
             }
         }
 
@@ -97,7 +97,7 @@ public class TextureStitcher implements ITextureStitcher {
         try {
             textureMap = new Texture(buffer.getWidth(), buffer.getHeight(), buffer.getRGBA());
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.SEVERE, "Couldn't load stitched texture", e);
+            RockBottomAPI.logger().log(Level.ERROR, "Couldn't load stitched texture", e);
             return;
         }
 
@@ -106,9 +106,9 @@ public class TextureStitcher implements ITextureStitcher {
                 ITexture texture = textureMap.getSubTexture(position.x, position.y, position.texture.getTextureWidth(), position.texture.getTextureHeight());
                 position.instruction.callback.onStitched(position.x, position.y, texture);
 
-                RockBottomAPI.logger().finer("Finalized stitching of " + position.instruction.refName + " with final sub texture at " + position.x + ", " + position.y + " with dimensions " + position.texture.getTextureWidth() + 'x' + position.texture.getTextureHeight());
+                RockBottomAPI.logger().info("Finalized stitching of " + position.instruction.refName + " with final sub texture at " + position.x + ", " + position.y + " with dimensions " + position.texture.getTextureWidth() + 'x' + position.texture.getTextureHeight());
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.WARNING, "Couldn't finalize stitching of texture " + position.instruction.refName, e);
+                RockBottomAPI.logger().log(Level.WARN, "Couldn't finalize stitching of texture " + position.instruction.refName, e);
             }
         }
 
@@ -129,7 +129,7 @@ public class TextureStitcher implements ITextureStitcher {
                 ImageIO.write(image, "png", file);
                 RockBottomAPI.logger().info("Wrote texture sheet to file at " + file);
             } catch (IOException e) {
-                RockBottomAPI.logger().log(Level.WARNING, "Couldn't write texture sheet to file", e);
+                RockBottomAPI.logger().log(Level.WARN, "Couldn't write texture sheet to file", e);
             }
         }
     }

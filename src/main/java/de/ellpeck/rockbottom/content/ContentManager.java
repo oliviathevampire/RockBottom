@@ -13,6 +13,7 @@ import de.ellpeck.rockbottom.api.mod.IMod;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.content.recipes.*;
+import org.apache.logging.log4j.Level;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 
 public final class ContentManager {
 
@@ -78,14 +78,14 @@ public final class ContentManager {
                             }
                         }
                     } catch (Exception e) {
-                        RockBottomAPI.logger().log(Level.SEVERE, "Couldn't read " + file + " from mod " + mod.getDisplayName() + " in content pack " + pack.getName(), e);
+                        RockBottomAPI.logger().log(Level.FATAL, "Couldn't read " + file + " from mod " + mod.getDisplayName() + " in content pack " + pack.getName(), e);
                         continue;
                     }
                 } else if (pack.isDefault()) {
-                    RockBottomAPI.logger().warning("Mod " + mod.getDisplayName() + " is missing " + file + " file at path " + pathPrefix + path);
+                    RockBottomAPI.logger().warn("Mod " + mod.getDisplayName() + " is missing " + file + " file at path " + pathPrefix + path);
                     continue;
                 } else {
-                    RockBottomAPI.logger().config("Content pack " + pack.getName() + " does not have " + file + " file at path " + pathPrefix + path + " for mod " + mod.getDisplayName());
+                    RockBottomAPI.logger().info("Content pack " + pack.getName() + " does not have " + file + " file at path " + pathPrefix + path + " for mod " + mod.getDisplayName());
                     continue;
                 }
 
@@ -121,7 +121,7 @@ public final class ContentManager {
                 }
             }
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.SEVERE, "Couldn't load resource " + name + " for mod " + mod.getDisplayName(), e);
+            RockBottomAPI.logger().log(Level.FATAL, "Couldn't load resource " + name + " for mod " + mod.getDisplayName(), e);
         }
     }
 

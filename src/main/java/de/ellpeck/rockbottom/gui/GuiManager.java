@@ -59,7 +59,7 @@ public class GuiManager implements IGuiManager {
 
     @Override
     public void updateDimensions() {
-        RockBottomAPI.logger().config("Re-initializing Gui Manager");
+        RockBottomAPI.logger().info("Re-initializing Gui Manager");
 
         IGameInstance game = RockBottomAPI.getGame();
 
@@ -77,7 +77,7 @@ public class GuiManager implements IGuiManager {
 
         this.initOnScreenComponents();
 
-        RockBottomAPI.logger().config("Successfully re-initialized Gui Manager");
+        RockBottomAPI.logger().info("Successfully re-initialized Gui Manager");
     }
 
     @Override
@@ -386,9 +386,9 @@ public class GuiManager implements IGuiManager {
             }
 
             if (this.gui == null) {
-                RockBottomAPI.logger().config("Closed Gui");
+                RockBottomAPI.logger().info("Closed Gui");
             } else {
-                RockBottomAPI.logger().config("Opened Gui " + this.gui.getName() + " with " + this.gui.getComponents().size() + " components");
+                RockBottomAPI.logger().info("Opened Gui " + this.gui.getName() + " with " + this.gui.getComponents().size() + " components");
             }
         }
     }

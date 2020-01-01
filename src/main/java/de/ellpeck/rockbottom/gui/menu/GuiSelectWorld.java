@@ -10,12 +10,12 @@ import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.WorldInfo;
 import de.ellpeck.rockbottom.gui.component.ComponentSelectWorldButton;
+import org.apache.logging.log4j.Level;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Level;
 
 public class GuiSelectWorld extends Gui {
 
@@ -79,7 +79,7 @@ public class GuiSelectWorld extends Gui {
                                 Util.deleteFolder(button.worldFile);
                                 RockBottomAPI.logger().info("Successfully deleted world " + button.worldFile);
                             } catch (Exception e) {
-                                RockBottomAPI.logger().log(Level.WARNING, "Couldn't delete world " + button.worldFile, e);
+                                RockBottomAPI.logger().log(Level.WARN, "Couldn't delete world " + button.worldFile, e);
                             }
 
                             menu.remove(component);

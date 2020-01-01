@@ -9,8 +9,7 @@ import de.ellpeck.rockbottom.api.net.chat.component.ChatComponentText;
 import de.ellpeck.rockbottom.api.net.chat.component.ChatComponentTranslation;
 import de.ellpeck.rockbottom.api.toast.ToastBasic;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
-
-import java.util.logging.Level;
+import org.apache.logging.log4j.Level;
 
 public class GuiMenu extends Gui {
 
@@ -45,7 +44,7 @@ public class GuiMenu extends Gui {
 
                         return true;
                     } catch (Exception e) {
-                        RockBottomAPI.logger().log(Level.WARNING, "Couldn't start server", e);
+                        RockBottomAPI.logger().log(Level.WARN, "Couldn't start server", e);
                         game.getToaster().displayToast(new ToastBasic(new ChatComponentText("Oh no!"), new ChatComponentText("Something went wrong, please check the log."), 160));
                     }
                 }

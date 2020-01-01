@@ -34,6 +34,7 @@ import de.ellpeck.rockbottom.gui.cursor.CursorOpenHand;
 import de.ellpeck.rockbottom.gui.cursor.CursorPointer;
 import de.ellpeck.rockbottom.gui.menu.background.*;
 import de.ellpeck.rockbottom.init.RockBottom;
+import org.apache.logging.log4j.Level;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWImage;
@@ -46,7 +47,6 @@ import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.Level;
 
 public class AssetManager implements IAssetManager, IDisposable {
 
@@ -117,7 +117,7 @@ public class AssetManager implements IAssetManager, IDisposable {
                 loader.finalize(this);
             }
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.SEVERE, "Exception loading resources! ", e);
+            RockBottomAPI.logger().log(Level.ERROR, "Exception loading resources! ", e);
         }
 
         ImageBuffer buffer = new ImageBuffer(2, 2);
@@ -132,7 +132,7 @@ public class AssetManager implements IAssetManager, IDisposable {
             this.stitcher.doStitch();
             this.stitcher.reset();
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.SEVERE, "Exception stitching textures", e);
+            RockBottomAPI.logger().log(Level.ERROR, "Exception stitching textures", e);
         }
 
         this.loadCursors();
@@ -233,7 +233,7 @@ public class AssetManager implements IAssetManager, IDisposable {
         GLFWVidMode mode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
         this.cursorScale = Math.min(mode.width(), mode.height()) / 1080F;
 
-        RockBottomAPI.logger().config("Using cursor scale " + this.cursorScale);
+        RockBottomAPI.logger().info("Using cursor scale " + this.cursorScale);
 
         for (ISpecialCursor cursor : this.sortedCursors) {
             try {
@@ -266,7 +266,7 @@ public class AssetManager implements IAssetManager, IDisposable {
 
                 image.free();
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.WARNING, "Could not load mouse cursor " + cursor, e);
+                RockBottomAPI.logger().log(Level.WARN, "Could not load mouse cursor " + cursor, e);
             }
         }
     }
@@ -280,9 +280,9 @@ public class AssetManager implements IAssetManager, IDisposable {
                 GLFW.glfwSetCursor(this.game.getWindow(), MemoryUtil.NULL);
             }
 
-            RockBottomAPI.logger().config("Setting cursor to " + cursor);
+            RockBottomAPI.logger().info("Setting cursor to " + cursor);
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.SEVERE, "Could not set mouse cursor!", e);
+            RockBottomAPI.logger().log(Level.ERROR, "Could not set mouse cursor!", e);
         }
     }
 
@@ -299,7 +299,7 @@ public class AssetManager implements IAssetManager, IDisposable {
             this.assets.put(identifier, path, fallback);
             asset = fallback;
 
-            RockBottomAPI.logger().warning("Resource with name " + path + " is missing for identifier " + identifier);
+            RockBottomAPI.logger().warn("Resource with name " + path + " is missing for identifier " + identifier);
         }
 
         return (T) asset;

@@ -34,7 +34,7 @@ public class GuiRenameWorld extends Gui {
                 if (this.worldFile.renameTo(new File(this.worldFile.getParent(), this.name))) {
                     RockBottomAPI.logger().info("Successfully renamed world to " + this.name);
                 } else {
-                    RockBottomAPI.logger().warning("Couldn't rename world to " + this.name);
+                    RockBottomAPI.logger().warn("Couldn't rename world to " + this.name);
                 }
             }
 

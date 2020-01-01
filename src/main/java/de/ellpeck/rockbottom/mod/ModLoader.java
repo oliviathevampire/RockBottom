@@ -10,14 +10,25 @@ import de.ellpeck.rockbottom.api.data.settings.ModSettings;
 import de.ellpeck.rockbottom.api.mod.IMod;
 import de.ellpeck.rockbottom.api.mod.IModLoader;
 import de.ellpeck.rockbottom.api.util.Counter;
+import de.ellpeck.rockbottom.init.AbstractGame;
+import de.ellpeck.rockbottom.mod.discovery.*;
+import de.ellpeck.rockbottom.mod.game.GameProvider;
+import de.ellpeck.rockbottom.mod.loader.api.EnvType;
+import de.ellpeck.rockbottom.mod.metadata.BuiltinModMetadata;
+import de.ellpeck.rockbottom.mod.util.Arguments;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.lang.reflect.Method;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class ModLoader implements IModLoader {
 
@@ -26,6 +37,7 @@ public class ModLoader implements IModLoader {
     private final List<IMod> disabledMods = new ArrayList<>();
 
     private final ModSettings modSettings = new ModSettings();
+    private GameProvider provider;
 
     public ModLoader() {
         IGameInstance game = RockBottomAPI.getGame();
@@ -59,7 +71,7 @@ public class ModLoader implements IModLoader {
 
                 writer.close();
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.WARNING, "Couldn't create info file in mods folder", e);
+                RockBottomAPI.logger().log(Level.WARN, "Couldn't create info file in mods folder", e);
             }
 
             RockBottomAPI.logger().info("Mods folder not found, creating at " + dir);
@@ -67,6 +79,113 @@ public class ModLoader implements IModLoader {
             int amount = 0;
 
             RockBottomAPI.logger().info("Loading jar mods from mods folder " + dir);
+
+            ModResolver resolver = new ModResolver();
+            resolver.addCandidateFinder(new ClasspathModCandidateFinder());
+            resolver.addCandidateFinder(new DirectoryModCandidateFinder(dir.toPath()));
+            Map<String, ModCandidate> candidateMap = null;
+            try {
+                candidateMap = resolver.resolve(new GameProvider() {
+                    private Arguments arguments;
+
+                    @Override
+                    public String getGameId() {
+                        return AbstractGame.ID;
+                    }
+
+                    @Override
+                    public String getGameName() {
+                        return AbstractGame.NAME;
+                    }
+
+                    @Override
+                    public String getRawGameVersion() {
+                        return AbstractGame.VERSION;
+                    }
+
+                    @Override
+                    public String getNormalizedGameVersion() {
+                        return AbstractGame.VERSION;
+                    }
+
+                    @Override
+                    public Collection<BuiltinMod> getBuiltinMods() {
+                        return Collections.singletonList(
+                                new BuiltinMod(null, new BuiltinModMetadata.Builder(getGameId(), getNormalizedGameVersion())
+                                        .setName(getGameName())
+                                        .build())
+                        );
+                    }
+
+                    @Override
+                    public String getEntrypoint() {
+                        return "null";
+                    }
+
+                    @Override
+                    public Path getLaunchDirectory() {
+                        return new File(".").toPath();
+                    }
+
+                    @Override
+                    public boolean isObfuscated() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean requiresUrlClassLoader() {
+                        return false;
+                    }
+
+                    @Override
+                    public List<Path> getGameContextJars() {
+                        return null;
+                    }
+
+                    @Override
+                    public boolean locateGame(EnvType envType, ClassLoader loader) {
+                        return false;
+                    }
+
+                    @Override
+                    public void acceptArguments(String... argStrings) {
+                        this.arguments = new Arguments();
+                        arguments.parse(argStrings);
+                    }
+
+                    @Override
+                    public void launch(ClassLoader loader) {
+                        try {
+                            Class<?> c = loader.loadClass("de.ellpeck.rockbottom.Main");
+                            Method m = c.getMethod("main", String[].class);
+                            m.invoke(null, (Object) arguments.toArray());
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+            } catch (ModResolutionException e) {
+                e.printStackTrace();
+            }
+
+            String modText;
+            switch (candidateMap.values().size()) {
+                case 0:
+                    modText = "Loading %d mods";
+                    break;
+                case 1:
+                    modText = "Loading %d mod: %s";
+                    break;
+                default:
+                    modText = "Loading %d mods: %s";
+                    break;
+            }
+
+            Logger logger = LogManager.getLogger(AbstractGame.NAME);
+            logger.info("This is a test");
+            logger.info(String.format("[" + getClass().getSimpleName() + "] " + modText, candidateMap.values().size(), candidateMap.values().stream()
+                    .map(info -> String.format("%s@%s", info.getInfo().getId(), info.getInfo().getVersion().getFriendlyString()))
+                    .collect(Collectors.joining(", "))));
 
             for (File file : Objects.requireNonNull(dir.listFiles())) {
                 if (!file.equals(infoFile) && !file.equals(manager.getModConfigFolder())) {
@@ -94,13 +213,13 @@ public class ModLoader implements IModLoader {
                             jar.close();
 
                             if (!foundMod) {
-                                RockBottomAPI.logger().warning("Jar file " + file + " doesn't contain a valid mod");
+                                RockBottomAPI.logger().warn("Jar file " + file + " doesn't contain a valid mod");
                             }
                         } catch (Exception e) {
-                            RockBottomAPI.logger().log(Level.WARNING, "Loading jar mod from file " + file + " failed", e);
+                            RockBottomAPI.logger().log(Level.WARN, "Loading jar mod from file " + file + " failed", e);
                         }
                     } else {
-                        RockBottomAPI.logger().warning("Found non-jar file " + file + " in mods folder " + dir);
+                        RockBottomAPI.logger().warn("Found non-jar file " + file + " in mods folder " + dir);
                     }
                 }
             }
@@ -137,10 +256,10 @@ public class ModLoader implements IModLoader {
                             amount.add(1);
                         }
                     } catch (Exception e) {
-                        RockBottomAPI.logger().log(Level.WARNING, "Loading unpacked mod from file " + file + " failed", e);
+                        RockBottomAPI.logger().log(Level.WARN, "Loading unpacked mod from file " + file + " failed", e);
                     }
                 } else {
-                    RockBottomAPI.logger().warning("Found non-class file " + file + " in unpacked mods folder " + original);
+                    RockBottomAPI.logger().warn("Found non-class file " + file + " in unpacked mods folder " + original);
                 }
             }
         }
@@ -169,10 +288,10 @@ public class ModLoader implements IModLoader {
                             this.allMods.add(instance);
                             return true;
                         } else {
-                            RockBottomAPI.logger().warning("Cannot load mod " + instance.getDisplayName() + " with id " + id + " and version " + instance.getVersion() + " because a mod with that id is already present");
+                            RockBottomAPI.logger().warn("Cannot load mod " + instance.getDisplayName() + " with id " + id + " and version " + instance.getVersion() + " because a mod with that id is already present");
                         }
                     } else {
-                        RockBottomAPI.logger().warning("Cannot load mod " + instance.getDisplayName() + " with id " + id + " and version " + instance.getVersion() + " because the id is either missing, empty, not all lower case or contains spaces");
+                        RockBottomAPI.logger().warn("Cannot load mod " + instance.getDisplayName() + " with id " + id + " and version " + instance.getVersion() + " because the id is either missing, empty, not all lower case or contains spaces");
                     }
                 }
             }

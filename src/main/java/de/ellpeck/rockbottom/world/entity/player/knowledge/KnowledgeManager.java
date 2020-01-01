@@ -14,12 +14,12 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.net.packet.toclient.PacketKnowledge;
 import de.ellpeck.rockbottom.net.packet.toclient.PacketRecipesToast;
 import de.ellpeck.rockbottom.world.entity.player.EntityPlayer;
+import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 public class KnowledgeManager implements IKnowledgeManager {
 
@@ -47,7 +47,7 @@ public class KnowledgeManager implements IKnowledgeManager {
         if (information != null) {
             information.load(set, manager);
         } else {
-            RockBottomAPI.logger().warning("Couldn't load information with registry name " + regName + " and name " + name);
+            RockBottomAPI.logger().warn("Couldn't load information with registry name " + regName + " and name " + name);
         }
         return information;
     }
@@ -58,7 +58,7 @@ public class KnowledgeManager implements IKnowledgeManager {
         try {
             return infoClass.getConstructor(ResourceName.class).newInstance(name);
         } catch (Exception e) {
-            RockBottomAPI.logger().log(Level.WARNING, "Couldn't initialize information with registry name " + regName + " and name " + name, e);
+            RockBottomAPI.logger().log(Level.WARN, "Couldn't initialize information with registry name " + regName + " and name " + name, e);
             return null;
         }
     }

@@ -30,7 +30,7 @@ public class EventHandler implements IEventHandler {
             listeners.remove(listener);
             RockBottomAPI.logger().info("Unregistered event listener " + listener + " for event " + type);
         } else {
-            RockBottomAPI.logger().warning("Couldn't unregister event listener " + listener + " for event " + type + " as it wasn't registered");
+            RockBottomAPI.logger().warn("Couldn't unregister event listener " + listener + " for event " + type + " as it wasn't registered");
         }
     }
 
@@ -41,7 +41,7 @@ public class EventHandler implements IEventHandler {
 
             RockBottomAPI.logger().info("Unregistered all listeners for event " + type);
         } else {
-            RockBottomAPI.logger().warning("Couldn't unregister all events for type " + type + " as there were none registered");
+            RockBottomAPI.logger().warn("Couldn't unregister all events for type " + type + " as there were none registered");
         }
     }
 

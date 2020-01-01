@@ -151,7 +151,7 @@ public class StructureLoader implements IContentLoader<IStructure> {
 
                 Registries.STRUCTURE_REGISTRY.register(resourceName, new Structure(layers, width, height));
 
-                RockBottomAPI.logger().config("Loaded structure " + resourceName + " for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName());
+                RockBottomAPI.logger().info("Loaded structure " + resourceName + " for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName());
             }
         } else {
             RockBottomAPI.logger().info("Structure " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");

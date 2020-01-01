@@ -39,7 +39,7 @@ public class SmeltingRecipeLoader implements IContentLoader<SmeltingRecipe> {
 
                 new SmeltingRecipe(resourceName, input, output, time).register();
 
-                RockBottomAPI.logger().config("Loaded smelting recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with time " + time + ", input " + input + " and output " + output + " with content pack " + pack.getName());
+                RockBottomAPI.logger().info("Loaded smelting recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with time " + time + ", input " + input + " and output " + output + " with content pack " + pack.getName());
             }
         } else {
             RockBottomAPI.logger().info("Smelting recipe " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");

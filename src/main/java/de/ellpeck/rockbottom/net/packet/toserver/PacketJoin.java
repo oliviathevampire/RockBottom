@@ -108,7 +108,7 @@ public class PacketJoin implements IPacket {
 
                         RockBottomAPI.getGame().getChatLog().broadcastMessage(new ChatComponentTranslation(ResourceName.intern("info.connect"), player.getName()));
                     } else {
-                        RockBottomAPI.logger().warning("Player " + this.design.getName() + " with id " + this.id + " tried joining while already connected!");
+                        RockBottomAPI.logger().warn("Player " + this.design.getName() + " with id " + this.id + " tried joining while already connected!");
                         reject = new ChatComponentTranslation(ResourceName.intern("info.reject.connected_already"));
                     }
                 } else {
@@ -135,7 +135,7 @@ public class PacketJoin implements IPacket {
                 for (ModInfo info : this.modInfos) {
                     if (mod.getId().equals(info.id)) {
                         if (!mod.isCompatibleWithModVersion(info.version)) {
-                            RockBottomAPI.logger().warning("Player " + this.design.getName() + " with id " + this.id + " tried joining with incompatible version " + info.version + " of mod " + mod.getId() + ", expected was " + mod.getVersion());
+                            RockBottomAPI.logger().warn("Player " + this.design.getName() + " with id " + this.id + " tried joining with incompatible version " + info.version + " of mod " + mod.getId() + ", expected was " + mod.getVersion());
                             return new ChatComponentTranslation(ResourceName.intern("info.reject.incompatible_version"), mod.getId(), info.version, mod.getVersion());
                         } else {
                             mods.remove(i);
@@ -150,7 +150,7 @@ public class PacketJoin implements IPacket {
 
         if (!mods.isEmpty()) {
             String modList = this.listMods(mods);
-            RockBottomAPI.logger().warning("Player " + this.design.getName() + " with id " + this.id + " tried joining with missing required mods " + modList);
+            RockBottomAPI.logger().warn("Player " + this.design.getName() + " with id " + this.id + " tried joining with missing required mods " + modList);
             return new ChatComponentTranslation(ResourceName.intern("info.reject.missing_mods"), modList);
         }
 
@@ -164,7 +164,7 @@ public class PacketJoin implements IPacket {
             }
 
             if (!this.modInfos.isEmpty()) {
-                RockBottomAPI.logger().warning("Player " + this.design.getName() + " with id " + this.id + " tried joining with serverside required mods that aren't on the server: " + this.modInfos);
+                RockBottomAPI.logger().warn("Player " + this.design.getName() + " with id " + this.id + " tried joining with serverside required mods that aren't on the server: " + this.modInfos);
                 return new ChatComponentTranslation(ResourceName.intern("info.reject.too_many_mods"), this.modInfos.toString());
             }
         }

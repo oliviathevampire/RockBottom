@@ -10,10 +10,10 @@ import de.ellpeck.rockbottom.api.content.pack.ContentPack;
 import de.ellpeck.rockbottom.api.content.pack.IContentPackLoader;
 import de.ellpeck.rockbottom.api.data.settings.ContentPackSettings;
 import de.ellpeck.rockbottom.api.util.Util;
+import org.apache.logging.log4j.Level;
 
 import java.io.*;
 import java.util.*;
-import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -58,7 +58,7 @@ public class ContentPackLoader implements IContentPackLoader {
 
                 writer.close();
             } catch (Exception e) {
-                RockBottomAPI.logger().log(Level.WARNING, "Couldn't create info file in content packs folder", e);
+                RockBottomAPI.logger().log(Level.WARN, "Couldn't create info file in content packs folder", e);
             }
             RockBottomAPI.logger().info("Content packs folder not found, creating at " + dir);
         } else {
@@ -91,13 +91,13 @@ public class ContentPackLoader implements IContentPackLoader {
                             zip.close();
 
                             if (!foundPack) {
-                                RockBottomAPI.logger().warning("Zip file " + file + " doesn't contain a valid pack.json");
+                                RockBottomAPI.logger().warn("Zip file " + file + " doesn't contain a valid pack.json");
                             }
                         } catch (Exception e) {
-                            RockBottomAPI.logger().log(Level.WARNING, "Loading content pack from file " + file + " failed", e);
+                            RockBottomAPI.logger().log(Level.WARN, "Loading content pack from file " + file + " failed", e);
                         }
                     } else {
-                        RockBottomAPI.logger().warning("Found non-zip file " + file + " in content packs folder " + dir);
+                        RockBottomAPI.logger().warn("Found non-zip file " + file + " in content packs folder " + dir);
                     }
                 }
             }
@@ -158,10 +158,10 @@ public class ContentPackLoader implements IContentPackLoader {
 
                     return true;
                 } else {
-                    RockBottomAPI.logger().warning("Cannot load content pack " + name + " with id " + id + " and version " + version + " because a pack with that id is already present");
+                    RockBottomAPI.logger().warn("Cannot load content pack " + name + " with id " + id + " and version " + version + " because a pack with that id is already present");
                 }
             } else {
-                RockBottomAPI.logger().warning("Cannot load content pack " + name + " with id " + id + " and version " + version + " because the id is either missing, empty, not all lower case or contains spaces");
+                RockBottomAPI.logger().warn("Cannot load content pack " + name + " with id " + id + " and version " + version + " because the id is either missing, empty, not all lower case or contains spaces");
             }
         }
         return false;
