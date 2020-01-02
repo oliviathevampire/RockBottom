@@ -135,6 +135,10 @@ public abstract class AbstractGame implements IGameInstance {
         }
     }
 
+    public String getGameBrand() {
+        return "vanilla";
+    }
+
     @Override
     public float getTickDelta() {
         return this.tickDelta;

@@ -13,9 +13,7 @@ import de.ellpeck.rockbottom.api.util.Counter;
 import de.ellpeck.rockbottom.init.AbstractGame;
 import de.ellpeck.rockbottom.mod.discovery.*;
 import de.ellpeck.rockbottom.mod.game.GameProvider;
-import de.ellpeck.rockbottom.mod.loader.api.EnvType;
-import de.ellpeck.rockbottom.mod.metadata.BuiltinModMetadata;
-import de.ellpeck.rockbottom.mod.util.Arguments;
+import de.ellpeck.rockbottom.mod.game.RockBottomGameProvider;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,11 +21,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.lang.reflect.Method;
-import java.nio.file.Path;
 import java.util.*;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 
 public class ModLoader implements IModLoader {
@@ -85,91 +79,13 @@ public class ModLoader implements IModLoader {
             resolver.addCandidateFinder(new DirectoryModCandidateFinder(dir.toPath()));
             Map<String, ModCandidate> candidateMap = null;
             try {
-                candidateMap = resolver.resolve(new GameProvider() {
-                    private Arguments arguments;
-
-                    @Override
-                    public String getGameId() {
-                        return AbstractGame.ID;
-                    }
-
-                    @Override
-                    public String getGameName() {
-                        return AbstractGame.NAME;
-                    }
-
-                    @Override
-                    public String getRawGameVersion() {
-                        return AbstractGame.VERSION;
-                    }
-
-                    @Override
-                    public String getNormalizedGameVersion() {
-                        return AbstractGame.VERSION;
-                    }
-
-                    @Override
-                    public Collection<BuiltinMod> getBuiltinMods() {
-                        return Collections.singletonList(
-                                new BuiltinMod(null, new BuiltinModMetadata.Builder(getGameId(), getNormalizedGameVersion())
-                                        .setName(getGameName())
-                                        .build())
-                        );
-                    }
-
-                    @Override
-                    public String getEntrypoint() {
-                        return "null";
-                    }
-
-                    @Override
-                    public Path getLaunchDirectory() {
-                        return new File(".").toPath();
-                    }
-
-                    @Override
-                    public boolean isObfuscated() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean requiresUrlClassLoader() {
-                        return false;
-                    }
-
-                    @Override
-                    public List<Path> getGameContextJars() {
-                        return null;
-                    }
-
-                    @Override
-                    public boolean locateGame(EnvType envType, ClassLoader loader) {
-                        return false;
-                    }
-
-                    @Override
-                    public void acceptArguments(String... argStrings) {
-                        this.arguments = new Arguments();
-                        arguments.parse(argStrings);
-                    }
-
-                    @Override
-                    public void launch(ClassLoader loader) {
-                        try {
-                            Class<?> c = loader.loadClass("de.ellpeck.rockbottom.Main");
-                            Method m = c.getMethod("main", String[].class);
-                            m.invoke(null, (Object) arguments.toArray());
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                });
+                candidateMap = resolver.resolve(new RockBottomGameProvider());
             } catch (ModResolutionException e) {
                 e.printStackTrace();
             }
 
             String modText;
-            switch (candidateMap.values().size()) {
+            switch (Objects.requireNonNull(candidateMap).values().size()) {
                 case 0:
                     modText = "Loading %d mods";
                     break;
@@ -182,12 +98,11 @@ public class ModLoader implements IModLoader {
             }
 
             Logger logger = LogManager.getLogger(AbstractGame.NAME);
-            logger.info("This is a test");
             logger.info(String.format("[" + getClass().getSimpleName() + "] " + modText, candidateMap.values().size(), candidateMap.values().stream()
                     .map(info -> String.format("%s@%s", info.getInfo().getId(), info.getInfo().getVersion().getFriendlyString()))
                     .collect(Collectors.joining(", "))));
 
-            for (File file : Objects.requireNonNull(dir.listFiles())) {
+            /*for (File file : Objects.requireNonNull(dir.listFiles())) {
                 if (!file.equals(infoFile) && !file.equals(manager.getModConfigFolder())) {
                     String name = file.getName();
                     if (name.endsWith(".jar")) {
@@ -224,7 +139,7 @@ public class ModLoader implements IModLoader {
                 }
             }
 
-            RockBottomAPI.logger().info("Loaded a total of " + amount + " jar mods");
+            RockBottomAPI.logger().info("Loaded a total of " + amount + " jar mods");*/
         }
     }
 

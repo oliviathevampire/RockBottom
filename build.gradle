@@ -50,6 +50,9 @@ repositories {
         name = 'SpongePowered'
         url = 'http://repo.spongepowered.org/maven'
     }
+
+    maven { url = "https://jitpack.io"}
+    jcenter()
 }
 
 dependencies {
@@ -63,11 +66,14 @@ dependencies {
     compile "org.apache.logging.log4j:log4j-core:2.8.1"
     compile 'com.google.jimfs:jimfs:1.1'
     compile 'net.fabricmc:fabric-loader-sat4j:2.3.5.4'
+    compile 'net.minecraft:launchwrapper:1.12'
 
     compile('net.fabricmc:sponge-mixin:0.8+build.17') {
         exclude module: 'launchwrapper'
         exclude module: 'guava'
     }
+
+    compile "me.zeroeightsix:fiber:0.6.0-7"
 }
 
 jar {
