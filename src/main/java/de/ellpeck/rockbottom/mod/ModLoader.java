@@ -10,19 +10,12 @@ import de.ellpeck.rockbottom.api.data.settings.ModSettings;
 import de.ellpeck.rockbottom.api.mod.IMod;
 import de.ellpeck.rockbottom.api.mod.IModLoader;
 import de.ellpeck.rockbottom.api.util.Counter;
-import de.ellpeck.rockbottom.init.AbstractGame;
-import de.ellpeck.rockbottom.mod.discovery.*;
-import de.ellpeck.rockbottom.mod.game.GameProvider;
-import de.ellpeck.rockbottom.mod.game.RockBottomGameProvider;
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ModLoader implements IModLoader {
 
@@ -31,7 +24,6 @@ public class ModLoader implements IModLoader {
     private final List<IMod> disabledMods = new ArrayList<>();
 
     private final ModSettings modSettings = new ModSettings();
-    private GameProvider provider;
 
     public ModLoader() {
         IGameInstance game = RockBottomAPI.getGame();
@@ -73,34 +65,6 @@ public class ModLoader implements IModLoader {
             int amount = 0;
 
             RockBottomAPI.logger().info("Loading jar mods from mods folder " + dir);
-
-            ModResolver resolver = new ModResolver();
-            resolver.addCandidateFinder(new ClasspathModCandidateFinder());
-            resolver.addCandidateFinder(new DirectoryModCandidateFinder(dir.toPath()));
-            Map<String, ModCandidate> candidateMap = null;
-            try {
-                candidateMap = resolver.resolve(new RockBottomGameProvider());
-            } catch (ModResolutionException e) {
-                e.printStackTrace();
-            }
-
-            String modText;
-            switch (Objects.requireNonNull(candidateMap).values().size()) {
-                case 0:
-                    modText = "Loading %d mods";
-                    break;
-                case 1:
-                    modText = "Loading %d mod: %s";
-                    break;
-                default:
-                    modText = "Loading %d mods: %s";
-                    break;
-            }
-
-            Logger logger = LogManager.getLogger(AbstractGame.NAME);
-            logger.info(String.format("[" + getClass().getSimpleName() + "] " + modText, candidateMap.values().size(), candidateMap.values().stream()
-                    .map(info -> String.format("%s@%s", info.getInfo().getId(), info.getInfo().getVersion().getFriendlyString()))
-                    .collect(Collectors.joining(", "))));
 
             /*for (File file : Objects.requireNonNull(dir.listFiles())) {
                 if (!file.equals(infoFile) && !file.equals(manager.getModConfigFolder())) {

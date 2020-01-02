@@ -53,6 +53,7 @@ repositories {
 
     maven { url = "https://jitpack.io"}
     jcenter()
+    mavenLocal()
 }
 
 dependencies {
@@ -65,14 +66,9 @@ dependencies {
     compile "org.apache.logging.log4j:log4j-api:2.8.1"
     compile "org.apache.logging.log4j:log4j-core:2.8.1"
     compile 'com.google.jimfs:jimfs:1.1'
-    compile 'net.fabricmc:fabric-loader-sat4j:2.3.5.4'
     compile 'net.minecraft:launchwrapper:1.12'
-
-    compile('net.fabricmc:sponge-mixin:0.8+build.17') {
-        exclude module: 'launchwrapper'
-        exclude module: 'guava'
-    }
-
+    compile "net.fabricmc:fabric-loader:0.6.1+local"
+    runtimeOnly "net.fabricmc:dev-launch-injector:0.1.0+build.3"
     compile "me.zeroeightsix:fiber:0.6.0-7"
 }
 

@@ -135,6 +135,7 @@ public abstract class AbstractGame implements IGameInstance {
         }
     }
 
+    @Override
     public String getGameBrand() {
         return "vanilla";
     }
