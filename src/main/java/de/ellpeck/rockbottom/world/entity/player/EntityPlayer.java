@@ -159,11 +159,11 @@ public class EntityPlayer extends AbstractEntityPlayer {
                 }
             }
 
-            if (this.currentContainer == null) {
+            /*if (this.currentContainer == null) {
                 RockBottomAPI.logger().info("Closed Container for player " + this.getName() + " with unique id " + this.getUniqueId());
             } else {
                 RockBottomAPI.logger().info("Opened Container " + this.currentContainer.getName() + " for player " + this.getName() + " with unique id " + this.getUniqueId());
-            }
+            }*/
             return true;
         }
         return false;
@@ -321,7 +321,7 @@ public class EntityPlayer extends AbstractEntityPlayer {
                                 if (entity != null) {
                                     this.world.addEntity(entity);
 
-                                    RockBottomAPI.logger().info("Spawned " + entity + " at " + theX + ", " + theY);
+//                                    RockBottomAPI.logger().info("Spawned " + entity + " at " + theX + ", " + theY);
                                 }
                             }
                         }

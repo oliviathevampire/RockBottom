@@ -280,7 +280,7 @@ public class AssetManager implements IAssetManager, IDisposable {
                 GLFW.glfwSetCursor(this.game.getWindow(), MemoryUtil.NULL);
             }
 
-            RockBottomAPI.logger().info("Setting cursor to " + cursor);
+//            RockBottomAPI.logger().info("Setting cursor to " + cursor);
         } catch (Exception e) {
             RockBottomAPI.logger().log(Level.ERROR, "Could not set mouse cursor!", e);
         }

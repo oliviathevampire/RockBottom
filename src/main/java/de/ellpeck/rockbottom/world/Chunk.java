@@ -203,7 +203,7 @@ public class Chunk implements IChunk {
                 double dist = handler.getMaxPlayerDistance(entity);
                 if (player == null || Util.distanceSq(player.getX(), player.getY(), x, y) >= dist * dist) {
                     handler.despawn(entity);
-                    RockBottomAPI.logger().info("Despawned " + entity + " at " + x + ", " + y);
+//                    RockBottomAPI.logger().info("Despawned " + entity + " at " + x + ", " + y);
                     return true;
                 }
             }

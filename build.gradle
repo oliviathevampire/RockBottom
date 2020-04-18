@@ -67,8 +67,6 @@ dependencies {
     compile "org.apache.logging.log4j:log4j-core:2.8.1"
     compile 'com.google.jimfs:jimfs:1.1'
     compile 'net.minecraft:launchwrapper:1.12'
-    compile "net.fabricmc:fabric-loader:0.6.1+local"
-    runtimeOnly "net.fabricmc:dev-launch-injector:0.1.0+build.3"
     compile "me.zeroeightsix:fiber:0.6.0-7"
 }
 

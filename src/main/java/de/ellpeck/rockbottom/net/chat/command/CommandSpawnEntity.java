@@ -2,7 +2,6 @@ package de.ellpeck.rockbottom.net.chat.command;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.Registries;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.font.FormattingCode;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -13,7 +12,6 @@ import de.ellpeck.rockbottom.api.net.chat.component.ChatComponent;
 import de.ellpeck.rockbottom.api.net.chat.component.ChatComponentText;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,7 +64,7 @@ public class CommandSpawnEntity extends Command {
 
                     return new ChatComponentText(FormattingCode.GREEN + "Spawned entity at " + x + ", " + y + '!');
                 } catch (Exception e) {
-                    RockBottomAPI.logger().log(Level.WARN, "Trying to spawn entity " + args[0] + " using default constructor failed!", e);
+//                    RockBottomAPI.logger().log(Level.WARN, "Trying to spawn entity " + args[0] + " using default constructor failed!", e);
                     return new ChatComponentText(FormattingCode.RED + "The entity '" + args[0] + "' cannot be spawned!");
                 }
             } else {

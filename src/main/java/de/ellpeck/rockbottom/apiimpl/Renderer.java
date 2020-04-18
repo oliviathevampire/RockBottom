@@ -624,7 +624,7 @@ public class Renderer implements IRenderer {
 
     @Override
     public void calcScales() {
-        RockBottomAPI.logger().info("Calculating render scales");
+//        RockBottomAPI.logger().info("Calculating render scales");
 
         IGameInstance game = RockBottomAPI.getGame();
         float width = game.getWidth();
@@ -638,7 +638,7 @@ public class Renderer implements IRenderer {
 
         recalculateWorldScale();
 
-        RockBottomAPI.logger().info("Successfully calculated render scales");
+//        RockBottomAPI.logger().info("Successfully calculated render scales");
     }
 
     @Override
